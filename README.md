@@ -1,2 +1,2 @@
-# fiat-global-solution
+# fiap-global-solution
 Projeto Global Solution - FIAP
