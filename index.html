@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Orbitron:wght@600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Orbitron:wght@600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -22,9 +22,9 @@
             <p>Sistema de Gestão da Colônia Lunar</p>
         </div>
 
-        <nav>
+        <nav aria-label="Navegação principal">
             <ul>
-                <li><a href="index.html" class="active">Dashboard</a></li>
+                <li><a href="index.html" class="active" aria-current="page">Dashboard</a></li>
                 <li><a href="recursos.html">Recursos</a></li>
                 <li><a href="monitoramento.html">Monitoramento</a></li>
                 <li><a href="alertas.html">Alertas</a></li>
@@ -32,19 +32,32 @@
         </nav>
     </header>
 
+    <div class="status-bar" role="status" aria-live="polite">
+        <div class="status-bar__cluster">
+            <span class="status-bar__pulse status-bar__pulse--critical" aria-hidden="true"></span>
+            <span class="status-bar__label">Colônia Alpha</span>
+        </div>
+        <span class="status-bar__divider" aria-hidden="true">·</span>
+        <span class="status-bar__state status-bar__state--critical">ATENÇÃO</span>
+        <span class="status-bar__divider" aria-hidden="true">·</span>
+        <span class="status-bar__count">1 crítico · 1 moderado</span>
+        <span class="status-bar__divider" aria-hidden="true">·</span>
+        <span class="status-bar__sync">Sync <time class="telemetry" datetime="2026-06-04T09:45:00Z">09:45 UTC</time></span>
+    </div>
+
     <main class="container">
 
         <section class="hero">
             <div>
                 <h2>Status Geral</h2>
                 <p>
-                    Monitoramento em tempo real dos recursos essenciais para a sobrevivência da colônia. Todos os sistemas operando normalmente. 
+                    Monitoramento em tempo real dos recursos essenciais para a sobrevivência da colônia. Sync <strong class="telemetry">09:45 UTC</strong> · <span class="sync-live">atualização automática</span>
                 </p>
             </div>
 
-            <div class="status-badge">
-                OPERACIONAL
-            </div>
+            <a href="alertas.html#alertas-criticos" class="status-badge status-badge--warning hero-action-link" aria-label="Colônia em atenção — 1 alerta crítico e 1 moderado — ver central de alertas">
+                ATENÇÃO · 1 crítico · 1 moderado
+            </a>
         </section>
 
         <section class="cards">
@@ -54,7 +67,7 @@
             <i class="fa-solid fa-bolt"></i>
         </span>
         <h3>Energia</h3>
-        <div class="value energia">85%</div>
+        <div class="value energia telemetry">85%</div>
         <p>Produção estável</p>
     </div>
 
@@ -63,7 +76,7 @@
             <i class="fa-solid fa-droplet"></i>
         </span>
         <h3>Água</h3>
-        <div class="value agua">72%</div>
+        <div class="value agua telemetry">72%</div>
         <p>Reservatórios seguros</p>
     </div>
 
@@ -72,7 +85,7 @@
             <i class="fa-solid fa-wind"></i>
         </span>
         <h3>Oxigênio</h3>
-        <div class="value oxigenio">91%</div>
+        <div class="value oxigenio telemetry">91%</div>
         <p>Nível ideal</p>
     </div>
 
@@ -81,7 +94,7 @@
             <i class="fa-solid fa-seedling"></i>
         </span>
         <h3>Alimentos</h3>
-        <div class="value alimentos">63%</div>
+        <div class="value alimentos telemetry">63%</div>
         <p>Reposição recomendada</p>
     </div>
 
@@ -94,7 +107,7 @@
 
                 <div class="info-item">
                     <span>Temperatura Externa</span>
-                    <strong>-18°C</strong>
+                    <strong class="telemetry">-18°C</strong>
                 </div>
 
                 <div class="info-item">
@@ -109,12 +122,16 @@
 
                 <div class="info-item">
                     <span>Última Atualização</span>
-                    <strong>09:45 UTC</strong>
+                    <strong class="telemetry">09:45 UTC</strong>
                 </div>
             </div>
 
             <div class="panel">
                 <h3>Alertas Recentes</h3>
+
+                <div class="alert critical">
+                    Temperatura crítica no Módulo de Armazenamento C (<span class="telemetry">-8°C</span>).
+                </div>
 
                 <div class="alert warning">
                     Estoque de alimentos abaixo de 70%.
@@ -127,6 +144,8 @@
                 <div class="alert normal">
                     Painéis solares com eficiência máxima.
                 </div>
+
+                <a href="alertas.html" class="panel-link">Ver central de alertas →</a>
             </div>
 
         </section>

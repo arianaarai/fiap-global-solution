@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Alertas | Lunar Resource Hub</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Orbitron:wght@600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Lunar Resource Hub</h1>
+            <p>Sistema de Gestão da Colônia Lunar</p>
+        </div>
+
+        <nav aria-label="Navegação principal">
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="recursos.html">Recursos</a></li>
+                <li><a href="monitoramento.html">Monitoramento</a></li>
+                <li><a href="alertas.html" class="active" aria-current="page">Alertas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="status-bar" role="status" aria-live="polite">
+        <div class="status-bar__cluster">
+            <span class="status-bar__pulse status-bar__pulse--critical" aria-hidden="true"></span>
+            <span class="status-bar__label">Colônia Alpha</span>
+        </div>
+        <span class="status-bar__divider" aria-hidden="true">·</span>
+        <span class="status-bar__state status-bar__state--critical">ATENÇÃO</span>
+        <span class="status-bar__divider" aria-hidden="true">·</span>
+        <span class="status-bar__count">1 crítico · 1 moderado</span>
+        <span class="status-bar__divider" aria-hidden="true">·</span>
+        <span class="status-bar__sync">Sync <time class="telemetry" datetime="2026-06-04T09:45:00Z">09:45 UTC</time></span>
+    </div>
+
+    <main class="container">
+
+        <section class="hero">
+            <div>
+                <h2>Central de Alertas</h2>
+                <a href="#recomendacoes-criticas" class="hero-priority hero-priority--critical">
+                    <strong>Prioridade agora:</strong> temperatura crítica no Módulo C (<span class="telemetry">-8°C</span> — abaixo de <span class="telemetry">-5°C</span>).
+                    <span class="hero-priority__hint">Ver o que fazer →</span>
+                </a>
+                <p class="hero-meta">Última sincronização: <strong class="telemetry">09:45 UTC</strong> · <span class="sync-live">atualização automática</span></p>
+            </div>
+
+            <a href="#alertas-criticos" class="status-badge status-badge--warning hero-action-link" aria-label="Colônia em atenção com 1 alerta crítico e 1 moderado">
+                ATENÇÃO · 1 crítico · 1 moderado
+            </a>
+        </section>
+
+        <section class="cards cards--summary" aria-label="Resumo de alertas ativos">
+            <a href="#alertas-criticos" class="card card--link" aria-label="Ver alertas críticos">
+                <span class="icon critico-icon">
+                    <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                </span>
+                <h3>Críticos</h3>
+                <div class="value critico">1</div>
+                <p>Ação imediata</p>
+                <span class="card__hint">Ver detalhes →</span>
+            </a>
+
+            <a href="#alertas-moderados" class="card card--link" aria-label="Ver alertas moderados">
+                <span class="icon moderado-icon">
+                    <i class="fa-solid fa-exclamation-circle" aria-hidden="true"></i>
+                </span>
+                <h3>Moderados</h3>
+                <div class="value moderado">1</div>
+                <p>Monitoramento reforçado</p>
+                <span class="card__hint">Ver detalhes →</span>
+            </a>
+        </section>
+
+        <div class="alertas-stack">
+
+            <section class="panel panel--full" id="alertas-criticos" role="region" aria-labelledby="alertas-criticos-titulo">
+                <div class="panel-header">
+                    <h3 id="alertas-criticos-titulo"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Alertas Críticos</h3>
+                    <ul class="alertas-legend" aria-label="Legenda de severidade">
+                        <li><span class="legend-dot legend-dot--critical"></span> Crítico</li>
+                        <li><span class="legend-dot legend-dot--moderate"></span> Moderado</li>
+                        <li><span class="legend-dot legend-dot--resolved"></span> Resolvido</li>
+                    </ul>
+                </div>
+
+                <p class="panel-sync"><span class="sync-dot sync-dot--critical" aria-hidden="true"></span> Alerta detectado <time class="telemetry" datetime="2026-06-04T09:12:00Z">09:12 UTC</time> · Sync geral <time class="telemetry" datetime="2026-06-04T09:45:00Z">09:45 UTC</time></p>
+
+                <div class="alert critical alert-item">
+                    <span class="alert-item__icon" aria-hidden="true">
+                        <i class="fa-solid fa-temperature-low"></i>
+                    </span>
+                    <div class="alert-item__content">
+                        <span class="badge badge-critical">
+                            <span class="severity-shape severity-shape--critical" aria-hidden="true"></span>
+                            Crítico
+                        </span>
+                        <strong>Temperatura crítica no Módulo de Armazenamento C</strong>
+
+                        <div class="alert-level-meter alert-level-meter--critical" role="meter" aria-valuenow="8" aria-valuemin="0" aria-valuemax="10" aria-label="Temperatura -8 graus C, abaixo do mínimo seguro de -5 graus C">
+                            <div class="alert-level-meter__header">
+                                <span class="alert-level-meter__value telemetry alert-level-meter__value--critical">-8°C</span>
+                                <span class="alert-level-meter__target">Mínimo: <span class="telemetry">-5°C</span></span>
+                            </div>
+                            <div class="alert-level-meter__track">
+                                <div class="alert-level-meter__fill alert-level-meter__fill--critical" style="width:85%"></div>
+                                <div class="alert-level-meter__marker alert-level-meter__marker--critical" style="left:62%" aria-hidden="true" title="Limite -5°C"></div>
+                            </div>
+                        </div>
+
+                        <p class="alert-item__impact">Risco: perda de suprimentos · Leitura: <span class="telemetry">-8°C</span></p>
+                        <span class="alert-item__meta telemetry">Módulo Armazenamento C · 09:12 UTC</span>
+
+                        <div class="alert-item__actions">
+                            <a href="#recomendacoes-criticas" class="alert-action alert-action--primary">Ver protocolo →</a>
+                            <button type="button" class="alert-action alert-action--secondary" id="btn-reconhecer-temperatura" aria-label="Marcar alerta de temperatura como reconhecido" aria-pressed="false">Reconhecer</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel panel--full" id="alertas-moderados">
+                <h3><i class="fa-solid fa-exclamation-circle" aria-hidden="true"></i> Alertas Moderados</h3>
+                <p class="panel-sync"><span class="sync-dot" aria-hidden="true"></span> Alerta detectado <time class="telemetry" datetime="2026-06-04T08:55:00Z">08:55 UTC</time> · Sync geral <time class="telemetry" datetime="2026-06-04T09:45:00Z">09:45 UTC</time></p>
+
+                <div class="alert warning alert-item">
+                    <span class="alert-item__icon" aria-hidden="true">
+                        <i class="fa-solid fa-seedling"></i>
+                    </span>
+                    <div class="alert-item__content">
+                        <span class="badge badge-moderate">
+                            <span class="severity-shape severity-shape--moderate" aria-hidden="true"></span>
+                            Moderado
+                        </span>
+                        <strong>Estoque de alimentos abaixo de 70%</strong>
+
+                        <div class="alert-level-meter" role="meter" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100" aria-label="Reservas de alimentos em 63%, meta operacional 70%">
+                            <div class="alert-level-meter__header">
+                                <span class="alert-level-meter__value telemetry">63%</span>
+                                <span class="alert-level-meter__target">Meta: <span class="telemetry">70%</span></span>
+                            </div>
+                            <div class="alert-level-meter__track">
+                                <div class="alert-level-meter__fill" style="width:63%"></div>
+                                <div class="alert-level-meter__marker" style="left:70%" aria-hidden="true" title="Meta 70%"></div>
+                            </div>
+                        </div>
+
+                        <p class="alert-item__impact">Risco: reposição · Reservas: <span class="telemetry">63%</span></p>
+                        <span class="alert-item__meta telemetry">Módulo Agrícola · 08:55 UTC</span>
+
+                        <div class="alert-item__actions">
+                            <a href="#recomendacoes-moderadas" class="alert-action alert-action--primary">Ver protocolo →</a>
+                            <button type="button" class="alert-action alert-action--secondary" id="btn-reconhecer" aria-label="Marcar alerta de alimentos como reconhecido" aria-pressed="false">Reconhecer</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel panel--full" id="alertas-informativos">
+                <details class="operacional-details">
+                    <summary class="operacional-summary">
+                        <span class="operacional-summary__title">
+                            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                            Status Operacional
+                        </span>
+                        <span class="operacional-summary__badge">
+                            <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                            4 sistemas estáveis
+                        </span>
+                        <span class="operacional-summary__hint operacional-summary__hint--closed">Expandir detalhes</span>
+                        <span class="operacional-summary__hint operacional-summary__hint--open">Recolher detalhes</span>
+                    </summary>
+
+                    <p class="panel-subtitle">Componentes da colônia — mesmos indicadores da visão geral.</p>
+
+                    <table class="components-table">
+                        <caption class="sr-only">Status operacional dos componentes da colônia lunar</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Componente</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Valor</th>
+                                <th scope="col">Leitura</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="Componente"><i class="fa-solid fa-droplet components-table__icon" aria-hidden="true"></i> Água (H₂O)</td>
+                                <td data-label="Status">
+                                    <span class="badge badge-resolved">
+                                        <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                        Estável
+                                    </span>
+                                </td>
+                                <td data-label="Valor" class="telemetry">72%</td>
+                                <td data-label="Leitura" class="telemetry">09:45 UTC</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Componente"><i class="fa-solid fa-bolt components-table__icon" aria-hidden="true"></i> Energia</td>
+                                <td data-label="Status">
+                                    <span class="badge badge-resolved">
+                                        <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                        Estável
+                                    </span>
+                                </td>
+                                <td data-label="Valor" class="telemetry">85%</td>
+                                <td data-label="Leitura" class="telemetry">09:45 UTC</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Componente"><i class="fa-solid fa-wind components-table__icon" aria-hidden="true"></i> Oxigênio (O₂)</td>
+                                <td data-label="Status">
+                                    <span class="badge badge-resolved">
+                                        <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                        Estável
+                                    </span>
+                                </td>
+                                <td data-label="Valor" class="telemetry">91%</td>
+                                <td data-label="Leitura" class="telemetry">09:45 UTC</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Componente"><i class="fa-solid fa-satellite-dish components-table__icon" aria-hidden="true"></i> Comunicação</td>
+                                <td data-label="Status">
+                                    <span class="badge badge-resolved">
+                                        <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                        Estável
+                                    </span>
+                                </td>
+                                <td data-label="Valor">Nominal</td>
+                                <td data-label="Leitura" class="telemetry">09:45 UTC</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </details>
+            </section>
+
+        </div>
+
+        <section class="panel panel--full" id="recomendacoes" aria-label="Recomendações de ação">
+            <h3><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Recomendações de Ação</h3>
+            <p class="panel-subtitle">Siga estas ações na ordem de prioridade para resolver os alertas ativos.</p>
+
+            <ol class="recommendations">
+                <li id="recomendacoes-criticas" class="recommendation recommendation--critical">
+                    <span class="recommendation__number" aria-hidden="true">1</span>
+                    <div>
+                        <span class="recommendation__tag">Temperatura · Crítico</span>
+                        <strong>Isolar e reaquecer o Módulo de Armazenamento C</strong>
+                        <p>Acionar aquecedores de backup, transferir suprimentos sensíveis ao frio para o Módulo A e manter equipe afastada até a temperatura superar <span class="telemetry">-5°C</span>.</p>
+                    </div>
+                </li>
+
+                <li id="recomendacoes-moderadas" class="recommendation recommendation--moderate">
+                    <span class="recommendation__number" aria-hidden="true">2</span>
+                    <div>
+                        <span class="recommendation__tag">Alimentos · Moderado</span>
+                        <strong>Acionar protocolo de reposição alimentar</strong>
+                        <p>Priorizar colheita do setor agrícola B e reduzir racionamento não essencial nas próximas 48 horas, elevando reservas acima de 70%.</p>
+                    </div>
+                </li>
+
+                <li class="recommendation recommendation--moderate">
+                    <span class="recommendation__number" aria-hidden="true">3</span>
+                    <div>
+                        <span class="recommendation__tag">Alimentos · Acompanhamento</span>
+                        <strong>Monitorar consumo diário de alimentos</strong>
+                        <p>Acompanhar taxa de consumo nas próximas 24 horas e registrar a reposição no sistema após o início do protocolo.</p>
+                    </div>
+                </li>
+
+                <li class="recommendation">
+                    <span class="recommendation__number" aria-hidden="true">4</span>
+                    <div>
+                        <span class="recommendation__tag">Preventivo · Info</span>
+                        <strong>Manter monitoramento de energia e água</strong>
+                        <p>Energia em 85% (estável) e água em 72% (reservatórios seguros). Nenhuma ação imediata necessária.</p>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+        <section class="panel panel--full" id="historico" aria-label="Histórico de ocorrências">
+            <h3><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i> Histórico de Ocorrências</h3>
+            <p class="panel-subtitle">13 ocorrências nos últimos 7 dias · 4 indicadores estáveis hoje</p>
+
+            <div class="history-toolbar">
+                <div class="history-filters" role="group" aria-label="Filtrar histórico por severidade ou status">
+                    <button type="button" class="history-filter history-filter--active" data-filter="all">Todos</button>
+                    <button type="button" class="history-filter" data-filter="critico">Crítico</button>
+                    <button type="button" class="history-filter" data-filter="moderado">Moderado</button>
+                    <button type="button" class="history-filter" data-filter="info">Info</button>
+                    <button type="button" class="history-filter" data-filter="ativo">Ativo</button>
+                    <button type="button" class="history-filter" data-filter="reconhecido">Reconhecido</button>
+                    <button type="button" class="history-filter" data-filter="estavel">Estável</button>
+                </div>
+                <div class="history-view-toggle" role="group" aria-label="Modo de visualização">
+                    <button type="button" class="history-view-btn history-view-btn--active" data-view="timeline" aria-pressed="true">Timeline</button>
+                    <button type="button" class="history-view-btn" data-view="table" aria-pressed="false">Tabela</button>
+                </div>
+            </div>
+
+            <p class="history-empty sr-only" id="history-empty" role="status">Nenhuma ocorrência corresponde ao filtro selecionado.</p>
+
+            <ol class="history-timeline history-view-panel history-view-panel--active" id="history-timeline" aria-label="Linha do tempo de ocorrências">
+                <li class="history-timeline__item history-timeline__item--critical history-row--critical"
+                    id="history-row-temperatura"
+                    data-severity="critico"
+                    data-status="ativo">
+                    <span class="history-timeline__dot" aria-hidden="true"></span>
+                    <div class="history-timeline__body">
+                        <time class="history-time telemetry" datetime="2026-06-04T09:12:00">04/06 · 09:12</time>
+                        <div class="history-timeline__badges">
+                            <span class="badge badge-critical">
+                                <span class="severity-shape severity-shape--critical" aria-hidden="true"></span>
+                                Crítico
+                            </span>
+                            <span class="badge badge-active badge-active--critical" id="history-status-temperatura">Ativo</span>
+                        </div>
+                        <p class="history-timeline__desc">Temperatura crítica no Módulo C (<span class="telemetry">-8°C</span> · mín. <span class="telemetry">-5°C</span>)</p>
+                    </div>
+                </li>
+                <li class="history-timeline__item history-timeline__item--active history-row--active"
+                    id="history-row-alimentos"
+                    data-severity="moderado"
+                    data-status="ativo">
+                    <span class="history-timeline__dot" aria-hidden="true"></span>
+                    <div class="history-timeline__body">
+                        <time class="history-time telemetry" datetime="2026-06-04T08:55:00">04/06 · 08:55</time>
+                        <div class="history-timeline__badges">
+                            <span class="badge badge-moderate">
+                                <span class="severity-shape severity-shape--moderate" aria-hidden="true"></span>
+                                Moderado
+                            </span>
+                            <span class="badge badge-active" id="history-status-alimentos">Ativo</span>
+                        </div>
+                        <p class="history-timeline__desc">Estoque de alimentos abaixo de 70% (<span class="telemetry">63%</span>)</p>
+                    </div>
+                </li>
+                <li class="history-timeline__item history-timeline__item--resolved history-row--resolved"
+                    data-severity="info"
+                    data-status="estavel">
+                    <span class="history-timeline__dot" aria-hidden="true"></span>
+                    <div class="history-timeline__body">
+                        <time class="history-time telemetry" datetime="2026-06-04T09:45:00">04/06 · 09:45</time>
+                        <div class="history-timeline__badges">
+                            <span class="badge badge-resolved">
+                                <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                Info
+                            </span>
+                            <span class="badge badge-resolved">
+                                <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                Estável
+                            </span>
+                        </div>
+                        <p class="history-timeline__desc">Painéis solares com eficiência máxima (<span class="telemetry">85%</span>)</p>
+                    </div>
+                </li>
+                <li class="history-timeline__item history-timeline__item--resolved history-row--resolved"
+                    data-severity="info"
+                    data-status="estavel">
+                    <span class="history-timeline__dot" aria-hidden="true"></span>
+                    <div class="history-timeline__body">
+                        <time class="history-time telemetry" datetime="2026-06-04T09:45:00">04/06 · 09:45</time>
+                        <div class="history-timeline__badges">
+                            <span class="badge badge-resolved">
+                                <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                Info
+                            </span>
+                            <span class="badge badge-resolved">
+                                <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                Estável
+                            </span>
+                        </div>
+                        <p class="history-timeline__desc">Sistema de reciclagem de água operando normalmente (<span class="telemetry">72%</span>)</p>
+                    </div>
+                </li>
+                <li class="history-timeline__item history-timeline__item--resolved history-row--resolved"
+                    data-severity="info"
+                    data-status="estavel">
+                    <span class="history-timeline__dot" aria-hidden="true"></span>
+                    <div class="history-timeline__body">
+                        <time class="history-time telemetry" datetime="2026-06-04T09:45:00">04/06 · 09:45</time>
+                        <div class="history-timeline__badges">
+                            <span class="badge badge-resolved">
+                                <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                Info
+                            </span>
+                            <span class="badge badge-resolved">
+                                <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                Estável
+                            </span>
+                        </div>
+                        <p class="history-timeline__desc">Oxigênio em nível ideal (<span class="telemetry">91%</span>)</p>
+                    </div>
+                </li>
+                <li class="history-timeline__item history-timeline__item--resolved history-row--resolved"
+                    data-severity="info"
+                    data-status="estavel">
+                    <span class="history-timeline__dot" aria-hidden="true"></span>
+                    <div class="history-timeline__body">
+                        <time class="history-time telemetry" datetime="2026-06-04T09:45:00">04/06 · 09:45</time>
+                        <div class="history-timeline__badges">
+                            <span class="badge badge-resolved">
+                                <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                Info
+                            </span>
+                            <span class="badge badge-resolved">
+                                <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                Estável
+                            </span>
+                        </div>
+                        <p class="history-timeline__desc">Comunicação satelital estável</p>
+                    </div>
+                </li>
+            </ol>
+
+            <div class="history-table-wrap history-view-panel" id="history-table-wrap" hidden>
+                <h4 class="history-section-title">Em andamento</h4>
+                <table class="history-table">
+                    <caption class="sr-only">Alertas ativos da colônia lunar</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Data / Hora</th>
+                            <th scope="col">Severidade</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-table-active">
+                        <tr class="history-row--critical" data-severity="critico" data-status="ativo" data-timeline-id="history-row-temperatura">
+                            <td class="history-time telemetry">04/06 · 09:12</td>
+                            <td>
+                                <span class="badge badge-critical">
+                                    <span class="severity-shape severity-shape--critical" aria-hidden="true"></span>
+                                    Crítico
+                                </span>
+                            </td>
+                            <td>Temperatura crítica no Módulo C (-8°C · mín. -5°C)</td>
+                            <td><span class="badge badge-active badge-active--critical" id="history-table-status-temperatura">Ativo</span></td>
+                        </tr>
+                        <tr class="history-row--active" data-severity="moderado" data-status="ativo" data-timeline-id="history-row-alimentos">
+                            <td class="history-time telemetry">04/06 · 08:55</td>
+                            <td>
+                                <span class="badge badge-moderate">
+                                    <span class="severity-shape severity-shape--moderate" aria-hidden="true"></span>
+                                    Moderado
+                                </span>
+                            </td>
+                            <td>Estoque de alimentos abaixo de 70% (63%)</td>
+                            <td><span class="badge badge-active" id="history-table-status-alimentos">Ativo</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4 class="history-section-title history-section-title--resolved">Encerradas e informativos</h4>
+                <table class="history-table history-table--resolved">
+                    <caption class="sr-only">Ocorrências encerradas da colônia lunar</caption>
+                    <thead class="sr-only">
+                        <tr>
+                            <th scope="col">Data / Hora</th>
+                            <th scope="col">Severidade</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-table-resolved">
+                        <tr class="history-row--resolved" data-severity="info" data-status="estavel">
+                            <td class="history-time telemetry">04/06 · 09:45</td>
+                            <td>
+                                <span class="badge badge-resolved">
+                                    <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                    Info
+                                </span>
+                            </td>
+                            <td>Painéis solares com eficiência máxima (85%)</td>
+                            <td>
+                                <span class="badge badge-resolved">
+                                    <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                    Estável
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="history-row--resolved" data-severity="info" data-status="estavel">
+                            <td class="history-time telemetry">04/06 · 09:45</td>
+                            <td>
+                                <span class="badge badge-resolved">
+                                    <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                    Info
+                                </span>
+                            </td>
+                            <td>Sistema de reciclagem de água operando normalmente (72%)</td>
+                            <td>
+                                <span class="badge badge-resolved">
+                                    <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                    Estável
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="history-row--resolved" data-severity="info" data-status="estavel">
+                            <td class="history-time telemetry">04/06 · 09:45</td>
+                            <td>
+                                <span class="badge badge-resolved">
+                                    <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                    Info
+                                </span>
+                            </td>
+                            <td>Oxigênio em nível ideal (91%)</td>
+                            <td>
+                                <span class="badge badge-resolved">
+                                    <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                    Estável
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="history-row--resolved" data-severity="info" data-status="estavel">
+                            <td class="history-time telemetry">04/06 · 09:45</td>
+                            <td>
+                                <span class="badge badge-resolved">
+                                    <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                    Info
+                                </span>
+                            </td>
+                            <td>Comunicação satelital estável</td>
+                            <td>
+                                <span class="badge badge-resolved">
+                                    <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                    Estável
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Global Solution 2026 • FIAP • Lunar Resource Hub</p>
+    </footer>
+
+    <script>
+        (function () {
+            var currentFilter = 'all';
+            var acknowledgedHtml = '<span class="severity-shape severity-shape--normal" aria-hidden="true"></span> Reconhecido';
+
+            function getHistoryItems() {
+                return document.querySelectorAll('.history-timeline__item[data-severity], .history-table tbody tr[data-severity]');
+            }
+
+            function applyHistoryFilter(filter) {
+                currentFilter = filter;
+                var visible = 0;
+
+                getHistoryItems().forEach(function (el) {
+                    var severity = el.getAttribute('data-severity');
+                    var status = el.getAttribute('data-status');
+                    var show = filter === 'all' || filter === severity || filter === status;
+                    el.classList.toggle('history-item--hidden', !show);
+                    if (show) visible++;
+                });
+
+                var emptyMsg = document.getElementById('history-empty');
+                if (emptyMsg) {
+                    emptyMsg.classList.toggle('sr-only', visible > 0);
+                }
+
+                document.querySelectorAll('.history-filter').forEach(function (btn) {
+                    btn.classList.toggle('history-filter--active', btn.getAttribute('data-filter') === filter);
+                });
+            }
+
+            document.querySelectorAll('.history-filter').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    applyHistoryFilter(this.getAttribute('data-filter'));
+                });
+            });
+
+            document.querySelectorAll('.history-view-btn').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var view = this.getAttribute('data-view');
+                    document.querySelectorAll('.history-view-btn').forEach(function (b) {
+                        var active = b === btn;
+                        b.classList.toggle('history-view-btn--active', active);
+                        b.setAttribute('aria-pressed', active ? 'true' : 'false');
+                    });
+                    document.getElementById('history-timeline').hidden = view !== 'timeline';
+                    document.getElementById('history-table-wrap').hidden = view !== 'table';
+                });
+            });
+
+            function setupReconhecer(config) {
+                var btn = document.getElementById(config.btnId);
+                if (!btn) return;
+
+                btn.addEventListener('click', function () {
+                    var reconhecido = this.classList.toggle('alert-action--done');
+                    var timelineRow = document.getElementById(config.rowId);
+                    var timelineStatus = document.getElementById(config.timelineStatusId);
+                    var tableStatus = document.getElementById(config.tableStatusId);
+                    var tableRow = document.querySelector('[data-timeline-id="' + config.rowId + '"]');
+                    var activeTimelineClass = config.activeTimelineClass || 'history-timeline__item--active';
+                    var activeRowClass = config.activeRowClass || 'history-row--active';
+
+                    if (reconhecido) {
+                        this.textContent = 'Reconhecido ✓';
+                        this.setAttribute('aria-label', config.undoLabel);
+                        this.setAttribute('aria-pressed', 'true');
+
+                        timelineRow?.setAttribute('data-status', 'reconhecido');
+                        timelineRow?.classList.remove(activeRowClass, activeTimelineClass);
+                        timelineRow?.classList.add('history-row--acknowledged', 'history-timeline__item--acknowledged');
+                        if (timelineStatus) {
+                            timelineStatus.className = 'badge badge-acknowledged';
+                            timelineStatus.innerHTML = acknowledgedHtml;
+                        }
+
+                        tableRow?.setAttribute('data-status', 'reconhecido');
+                        tableRow?.classList.remove(activeRowClass);
+                        tableRow?.classList.add('history-row--acknowledged');
+                        if (tableStatus) {
+                            tableStatus.className = 'badge badge-acknowledged';
+                            tableStatus.innerHTML = acknowledgedHtml;
+                        }
+                    } else {
+                        this.textContent = 'Reconhecer';
+                        this.setAttribute('aria-label', config.doLabel);
+                        this.setAttribute('aria-pressed', 'false');
+
+                        timelineRow?.setAttribute('data-status', 'ativo');
+                        timelineRow?.classList.remove('history-row--acknowledged', 'history-timeline__item--acknowledged');
+                        timelineRow?.classList.add(activeRowClass, activeTimelineClass);
+                        if (timelineStatus) {
+                            timelineStatus.className = config.activeBadgeClass;
+                            timelineStatus.textContent = 'Ativo';
+                        }
+
+                        tableRow?.setAttribute('data-status', 'ativo');
+                        tableRow?.classList.remove('history-row--acknowledged');
+                        tableRow?.classList.add(activeRowClass);
+                        if (tableStatus) {
+                            tableStatus.className = config.activeBadgeClass;
+                            tableStatus.textContent = 'Ativo';
+                        }
+                    }
+
+                    applyHistoryFilter(currentFilter);
+                });
+            }
+
+            setupReconhecer({
+                btnId: 'btn-reconhecer-temperatura',
+                rowId: 'history-row-temperatura',
+                timelineStatusId: 'history-status-temperatura',
+                tableStatusId: 'history-table-status-temperatura',
+                activeTimelineClass: 'history-timeline__item--critical',
+                activeRowClass: 'history-row--critical',
+                activeBadgeClass: 'badge badge-active badge-active--critical',
+                doLabel: 'Marcar alerta de temperatura como reconhecido',
+                undoLabel: 'Desfazer reconhecimento do alerta de temperatura'
+            });
+
+            setupReconhecer({
+                btnId: 'btn-reconhecer',
+                rowId: 'history-row-alimentos',
+                timelineStatusId: 'history-status-alimentos',
+                tableStatusId: 'history-table-status-alimentos',
+                activeBadgeClass: 'badge badge-active',
+                doLabel: 'Marcar alerta de alimentos como reconhecido',
+                undoLabel: 'Desfazer reconhecimento do alerta de alimentos'
+            });
+        })();
+    </script>
+
+</body>
+</html>
