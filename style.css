@@ -1,0 +1,261 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#0A0F1F;
+    color:#FFFFFF;
+    font-family:'Inter', sans-serif;
+}
+
+/* HEADER */
+
+header{
+    background:#111827;
+    border-bottom:2px solid #2563EB;
+    padding:20px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.logo h1{
+    text-shadow: 0 0 5px rgba(253, 254, 254, 0.187), 0 0 15px rgba(96,165,250,.4);
+    font-family:'Orbitron', sans-serif;
+    color:#60A5FA;
+    font-size:2.2rem;
+    letter-spacing:3px;
+    text-transform:uppercase;
+}
+
+.hero h2, .panel h3, .card h3, nav a{
+    font-family:'Poppins', sans-serif;
+}
+
+.logo p{
+    color:#9CA3AF;
+    margin-top:5px;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:20px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
+    letter-spacing:.5px;
+}
+
+nav a:hover,
+nav a.active{
+    color:#60A5FA;
+}
+
+/* CONTAINER */
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:40px auto;
+}
+
+/* HERO */
+
+.hero{
+    background:#202634;
+    border-radius:15px;
+    padding:30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:40px;
+}
+
+.hero h2{
+    margin-bottom:10px;
+}
+
+.hero p{
+    color:#9CA3AF;
+    max-width:600px;
+}
+
+.status-badge{
+    background:#16A34A;
+    color:white;
+    font-weight:600;
+    padding:12px 22px;
+    border-radius:30px;
+    box-shadow:0 0 15px rgba(22,163,74,.35);
+}
+
+/* CARDS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#313a51;
+    border-radius:15px;
+    padding:25px;
+    text-align:center;
+    transition:.3s;
+    box-shadow:0 8px 25px rgba(42, 107, 220, 0.25);
+}
+
+.card:hover{
+    transform:translateY(-10px);
+}
+
+.icon{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:60px;
+    height:60px;
+    margin:0 auto 15px;
+    border-radius:50%;
+    font-size:1.5rem;
+}
+
+.energia-icon{
+    background:rgba(250,204,21,.15);
+    color:#FACC15;
+}
+
+.agua-icon{
+    background:rgba(56,189,248,.15);
+    color:#38BDF8;
+}
+
+.oxigenio-icon{
+    background:rgba(74,222,128,.15);
+    color:#4ADE80;
+}
+
+.alimento-icon{
+    background:rgba(251,113,133,.15);
+    color:#FB7185;
+}
+
+.card h3{
+    margin:15px 0 8px;
+    font-size:1.1rem;
+    font-weight:600;
+}
+
+.value{
+    font-family:'Orbitron', sans-serif;
+    font-size:2.8rem;
+    font-weight:700;
+}
+
+.card p{
+    color:#b4bac5;
+}
+
+.energia{
+    color:#d0aa14;
+}
+
+.agua{
+    color:#326edf;
+}
+
+.oxigenio{
+    color:#22a74a;
+}
+
+.alimentos{
+    color:#c43248;
+}
+
+/* PAINÉIS */
+
+.overview{
+    margin-top:40px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.panel{
+    background:#202634;
+    border-radius:15px;
+    padding:25px;
+    border:1px solid rgba(255,255,255,.05);
+    box-shadow:0 8px 25px rgba(0,0,0,.2);
+}
+
+.panel h3{
+    margin-bottom:20px;
+}
+
+.info-item{
+    display:flex;
+    justify-content:space-between;
+    padding:15px 0;
+    border-bottom:1px solid #1F2937;
+}
+
+.alert{
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:10px;
+}
+
+.warning{
+    background:rgba(249,115,22,0.15);
+    border-left:4px solid #F97316;
+}
+
+.normal{
+    background:rgba(34,197,94,0.15);
+    border-left:4px solid #04cd4e;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#9CA3AF;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:768px){
+
+    header{
+        flex-direction:column;
+        gap:20px;
+        text-align:center;
+    }
+
+    nav ul{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .hero{
+        flex-direction:column;
+        gap:20px;
+        text-align:center;
+    }
+
+    .overview{
+        grid-template-columns:1fr;
+    }
+
+}

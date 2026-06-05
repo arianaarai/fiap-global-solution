@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lunar Resource Hub</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Orbitron:wght@600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Lunar Resource Hub</h1>
+            <p>Sistema de Gestão da Colônia Lunar</p>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Dashboard</a></li>
+                <li><a href="recursos.html">Recursos</a></li>
+                <li><a href="monitoramento.html">Monitoramento</a></li>
+                <li><a href="alertas.html">Alertas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <section class="hero">
+            <div>
+                <h2>Status Geral</h2>
+                <p>
+                    Monitoramento em tempo real dos recursos essenciais para a sobrevivência da colônia. Todos os sistemas operando normalmente. 
+                </p>
+            </div>
+
+            <div class="status-badge">
+                OPERACIONAL
+            </div>
+        </section>
+
+        <section class="cards">
+
+    <div class="card">
+        <span class="icon energia-icon">
+            <i class="fa-solid fa-bolt"></i>
+        </span>
+        <h3>Energia</h3>
+        <div class="value energia">85%</div>
+        <p>Produção estável</p>
+    </div>
+
+    <div class="card">
+        <span class="icon agua-icon">
+            <i class="fa-solid fa-droplet"></i>
+        </span>
+        <h3>Água</h3>
+        <div class="value agua">72%</div>
+        <p>Reservatórios seguros</p>
+    </div>
+
+    <div class="card">
+        <span class="icon oxigenio-icon">
+            <i class="fa-solid fa-wind"></i>
+        </span>
+        <h3>Oxigênio</h3>
+        <div class="value oxigenio">91%</div>
+        <p>Nível ideal</p>
+    </div>
+
+    <div class="card">
+        <span class="icon alimento-icon">
+            <i class="fa-solid fa-seedling"></i>
+        </span>
+        <h3>Alimentos</h3>
+        <div class="value alimentos">63%</div>
+        <p>Reposição recomendada</p>
+    </div>
+
+</section>
+
+        <section class="overview">
+
+            <div class="panel">
+                <h3>Dados Recebidos do Satélite</h3>
+
+                <div class="info-item">
+                    <span>Temperatura Externa</span>
+                    <strong>-18°C</strong>
+                </div>
+
+                <div class="info-item">
+                    <span>Radiação Solar</span>
+                    <strong>Baixa</strong>
+                </div>
+
+                <div class="info-item">
+                    <span>Comunicação</span>
+                    <strong>Estável</strong>
+                </div>
+
+                <div class="info-item">
+                    <span>Última Atualização</span>
+                    <strong>09:45 UTC</strong>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Alertas Recentes</h3>
+
+                <div class="alert warning">
+                    Estoque de alimentos abaixo de 70%.
+                </div>
+
+                <div class="alert normal">
+                    Sistema de reciclagem de água operando normalmente.
+                </div>
+
+                <div class="alert normal">
+                    Painéis solares com eficiência máxima.
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Global Solution 2026 • FIAP • Lunar Resource Hub</p>
+    </footer>
+
+</body>
+</html>
