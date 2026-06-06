@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Recursos | Lunar Resource Hub</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Orbitron:wght@600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Lunar Resource Hub</h1>
+            <p>Sistema de Gestão da Colônia Lunar</p>
+        </div>
+
+        <nav aria-label="Navegação principal">
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="recursos.html" class="active" aria-current="page">Recursos</a></li>
+                <li><a href="monitoramento.html">Monitoramento</a></li>
+                <li><a href="alertas.html">Alertas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="status-bar" role="status" aria-live="polite">
+        <div class="status-bar__cluster">
+            <span class="status-bar__pulse status-bar__pulse--critical" aria-hidden="true"></span>
+            <span class="status-bar__label">Colônia Alpha</span>
+        </div>
+        <span class="status-bar__divider" aria-hidden="true">·</span>
+        <span class="status-bar__state status-bar__state--critical">ATENÇÃO</span>
+        <span class="status-bar__divider" aria-hidden="true">·</span>
+        <span class="status-bar__count">1 crítico · 1 moderado</span>
+        <span class="status-bar__divider" aria-hidden="true">·</span>
+        <span class="status-bar__sync">Sync <time class="telemetry" datetime="2026-06-04T09:45:00Z">09:45 UTC</time></span>
+    </div>
+
+    <main class="container">
+
+        <section class="hero">
+            <div>
+                <h2>Gestão de Recursos</h2>
+                <p>
+                    Controle de estoque, consumo e produção diária de água, energia e alimentos.
+                    Sync <strong class="telemetry">09:45 UTC</strong> · estoque de alimentos em <strong class="telemetry">63%</strong> (meta 70%).
+                    Oxigênio (<strong class="telemetry">91%</strong>) é acompanhado no <a href="index.html">Dashboard</a> e na tela de <a href="monitoramento.html">Monitoramento</a>.
+                </p>
+            </div>
+
+            <a href="alertas.html#alertas-moderados" class="status-badge status-badge--warning hero-action-link" aria-label="Estoque de alimentos moderado — ver central de alertas">
+                Alimentos · 63%
+            </a>
+        </section>
+
+        <nav class="recursos-anchor-nav" aria-label="Seções da gestão de recursos">
+            <ul>
+                <li><a href="#agua"><i class="fa-solid fa-droplet" aria-hidden="true"></i> Água</a></li>
+                <li><a href="#energia"><i class="fa-solid fa-bolt" aria-hidden="true"></i> Energia</a></li>
+                <li><a href="#alimentos"><i class="fa-solid fa-seedling" aria-hidden="true"></i> Alimentos</a></li>
+                <li><a href="#estoque"><i class="fa-solid fa-boxes-stacked" aria-hidden="true"></i> Estoque</a></li>
+                <li><a href="#resumos"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Resumos</a></li>
+                <li><a href="#utilitarios"><i class="fa-solid fa-database" aria-hidden="true"></i> Utilitários</a></li>
+            </ul>
+        </nav>
+
+        <div id="recursos-feedback" class="recursos-feedback" role="status" aria-live="polite" hidden></div>
+
+        <div class="recursos-stack">
+
+            <section id="agua" class="panel panel--full">
+                <h3><i class="fa-solid fa-droplet" aria-hidden="true"></i> Controle de Água</h3>
+                <form id="form-agua" class="recursos-form">
+                    <div class="recursos-field">
+                        <label for="agua-data">Data</label>
+                        <input type="date" id="agua-data" required>
+                    </div>
+                    <div class="recursos-field">
+                        <label for="agua-volume">Volume (L)</label>
+                        <input type="number" id="agua-volume" step="0.01" placeholder="ex.: 120 (reciclagem estação)" required>
+                    </div>
+                    <div class="recursos-field">
+                        <label for="agua-tipo">Tipo</label>
+                        <select id="agua-tipo">
+                            <option value="consumo">Consumo</option>
+                            <option value="producao">Produção</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="recursos-btn">Adicionar</button>
+                </form>
+                <div class="recursos-table-wrap">
+                    <h4 class="recursos-subtitle">Consumo (Água)</h4>
+                    <table class="history-table" id="tabela-agua-consumo">
+                        <thead><tr><th>Data</th><th>Volume (L)</th><th>Ações</th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="recursos-table-wrap">
+                    <h4 class="recursos-subtitle">Produção (Água)</h4>
+                    <table class="history-table" id="tabela-agua-producao">
+                        <thead><tr><th>Data</th><th>Volume (L)</th><th>Ações</th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="energia" class="panel panel--full">
+                <h3><i class="fa-solid fa-bolt" aria-hidden="true"></i> Gestão de Energia</h3>
+                <form id="form-energia" class="recursos-form">
+                    <div class="recursos-field">
+                        <label for="energia-data">Data</label>
+                        <input type="date" id="energia-data" required>
+                    </div>
+                    <div class="recursos-field">
+                        <label for="energia-kwh">Consumo/Produção (kWh)</label>
+                        <input type="number" id="energia-kwh" step="0.01" placeholder="ex.: 450 (Célula solar Módulo B)" required>
+                    </div>
+                    <div class="recursos-field">
+                        <label for="energia-tipo">Tipo</label>
+                        <select id="energia-tipo">
+                            <option value="consumo">Consumo</option>
+                            <option value="producao">Produção</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="recursos-btn">Adicionar</button>
+                </form>
+                <div class="recursos-table-wrap">
+                    <h4 class="recursos-subtitle">Consumo</h4>
+                    <table class="history-table" id="tabela-energia-consumo">
+                        <thead><tr><th>Data</th><th>kWh</th><th>Ações</th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="recursos-table-wrap">
+                    <h4 class="recursos-subtitle">Produção</h4>
+                    <table class="history-table" id="tabela-energia-producao">
+                        <thead><tr><th>Data</th><th>kWh</th><th>Ações</th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="alimentos" class="panel panel--full">
+                <h3><i class="fa-solid fa-seedling" aria-hidden="true"></i> Manipulação de Alimentos</h3>
+                <form id="form-alimento" class="recursos-form">
+                    <div class="recursos-field">
+                        <label for="alimento-data">Data</label>
+                        <input type="date" id="alimento-data" required>
+                    </div>
+                    <div class="recursos-field">
+                        <label for="alimento-item">Item</label>
+                        <input type="text" id="alimento-item" placeholder="ex.: Alface hidroponica" required>
+                    </div>
+                    <div class="recursos-field">
+                        <label for="alimento-qtd">Quantidade</label>
+                        <input type="number" id="alimento-qtd" step="0.01" required>
+                    </div>
+                    <div class="recursos-field">
+                        <label for="alimento-unidade">Unidade</label>
+                        <input type="text" id="alimento-unidade" placeholder="kg, un, L" required>
+                    </div>
+                    <div class="recursos-field">
+                        <label for="alimento-tipo">Tipo</label>
+                        <select id="alimento-tipo">
+                            <option value="entrada">Entrada</option>
+                            <option value="saida">Saída</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="recursos-btn">Adicionar</button>
+                </form>
+                <div class="recursos-table-wrap">
+                    <table class="history-table" id="tabela-alimentos">
+                        <thead><tr><th>Data</th><th>Item</th><th>Quantidade</th><th>Unidade</th><th>Tipo</th><th>Ações</th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="estoque" class="panel panel--full">
+                <h3><i class="fa-solid fa-boxes-stacked" aria-hidden="true"></i> Administração de Estoque</h3>
+                <form id="form-estoque" class="recursos-form">
+                    <div class="recursos-field">
+                        <label for="estoque-item">Item</label>
+                        <input type="text" id="estoque-item" placeholder="ex.: Kit reparo oxigenador" required>
+                    </div>
+                    <div class="recursos-field">
+                        <label for="estoque-qtd">Quantidade</label>
+                        <input type="number" id="estoque-qtd" step="0.01" required>
+                    </div>
+                    <div class="recursos-field">
+                        <label for="estoque-unidade">Unidade</label>
+                        <input type="text" id="estoque-unidade" placeholder="kg, un, L" required>
+                    </div>
+                    <button type="submit" class="recursos-btn">Adicionar / Atualizar</button>
+                </form>
+                <div class="recursos-table-wrap">
+                    <table class="history-table" id="tabela-estoque">
+                        <thead><tr><th>Item</th><th>Quantidade</th><th>Unidade</th><th>Ações</th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="resumos" class="panel panel--full">
+                <h3><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Consumo e Produção Diária (Resumo)</h3>
+                <form class="recursos-form" onsubmit="return false;">
+                    <div class="recursos-field">
+                        <label for="producao-data">Data</label>
+                        <input type="date" id="producao-data">
+                    </div>
+                    <div class="recursos-field">
+                        <label for="producao-recurso">Recurso</label>
+                        <select id="producao-recurso">
+                            <option value="agua">Água</option>
+                            <option value="energia">Energia</option>
+                        </select>
+                    </div>
+                    <div class="recursos-field">
+                        <label for="producao-valor">Valor</label>
+                        <input type="number" id="producao-valor" step="0.01" placeholder="ex.: 85 (kWh ou L)">
+                    </div>
+                </form>
+                <div class="recursos-actions">
+                    <button type="button" id="btn-producao" class="recursos-btn">Adicionar Produção</button>
+                    <button type="button" id="btn-consumo" class="recursos-btn recursos-btn--secondary">Adicionar Consumo</button>
+                </div>
+
+                <div class="recursos-form">
+                    <div class="recursos-field">
+                        <label for="resumo-data">Data para resumo</label>
+                        <input type="date" id="resumo-data">
+                    </div>
+                    <button type="button" id="btn-resumo" class="recursos-btn">Gerar Resumo</button>
+                    <button type="button" id="btn-comparar" class="recursos-btn recursos-btn--secondary">Comparar Consumo x Produção</button>
+                </div>
+
+                <div class="recursos-resumo-grid">
+                    <div class="recursos-table-wrap">
+                        <h4 class="recursos-subtitle">Resumo — Consumo</h4>
+                        <table class="history-table" id="tabela-resumo-consumo">
+                            <thead><tr><th>Recurso</th><th>Valor</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="recursos-table-wrap">
+                        <h4 class="recursos-subtitle">Resumo — Produção</h4>
+                        <table class="history-table" id="tabela-resumo-producao">
+                            <thead><tr><th>Recurso</th><th>Valor</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="utilitarios" class="panel panel--full">
+                <h3><i class="fa-solid fa-database" aria-hidden="true"></i> Utilitários</h3>
+                <div class="recursos-utilities">
+                    <article class="recursos-utility-card">
+                        <span class="recursos-utility-card__icon" aria-hidden="true"><i class="fa-solid fa-file-export"></i></span>
+                        <h4 class="recursos-utility-card__title">Exportar backup</h4>
+                        <p class="recursos-utility-card__desc">Baixe um arquivo JSON com todos os registros da colônia.</p>
+                        <button type="button" id="exportar" class="recursos-btn recursos-btn--block">Exportar Dados (JSON)</button>
+                    </article>
+
+                    <article class="recursos-utility-card">
+                        <span class="recursos-utility-card__icon" aria-hidden="true"><i class="fa-solid fa-file-import"></i></span>
+                        <h4 class="recursos-utility-card__title">Importar backup</h4>
+                        <p id="import-file-hint" class="recursos-utility-card__desc">Substitui os dados locais da colônia pelo arquivo selecionado.</p>
+                        <input type="file" id="import-file" class="recursos-file-input" accept=".json,application/json" aria-describedby="import-file-hint import-file-name">
+                        <label for="import-file" class="recursos-btn recursos-btn--secondary recursos-btn--block recursos-file-label">
+                            <i class="fa-solid fa-upload" aria-hidden="true"></i>
+                            Escolher arquivo JSON
+                        </label>
+                        <span id="import-file-name" class="recursos-file-name">Nenhum arquivo selecionado</span>
+                    </article>
+
+                    <article class="recursos-utility-card recursos-utility-card--danger">
+                        <span class="recursos-utility-card__icon" aria-hidden="true"><i class="fa-solid fa-trash-can"></i></span>
+                        <h4 class="recursos-utility-card__title">Limpar registros</h4>
+                        <p class="recursos-utility-card__desc">Remove todos os dados de água, energia, alimentos e estoque.</p>
+                        <button type="button" id="limpar" class="recursos-btn recursos-btn--danger recursos-btn--block recursos-btn--utility">Limpar Todos os Dados</button>
+                    </article>
+                </div>
+                <div id="limpar-confirm" class="recursos-confirm" hidden>
+                    <p>Confirma limpar todos os registros de água, energia, alimentos e estoque?</p>
+                    <div class="recursos-confirm__actions">
+                        <button type="button" id="limpar-sim" class="recursos-btn recursos-btn--danger">Sim, limpar tudo</button>
+                        <button type="button" id="limpar-nao" class="recursos-btn recursos-btn--secondary">Cancelar</button>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <p>Global Solution 2026 • FIAP • Lunar Resource Hub</p>
+    </footer>
+
+    <script>
+        const KEY_AGUA = 'recursos_agua';
+        const KEY_ENERGIA = 'recursos_energia';
+        const KEY_ALIMENTOS = 'recursos_alimentos';
+        const KEY_ESTOQUE = 'recursos_estoque';
+        const BTN_DELETE = 'recursos-btn recursos-btn--danger';
+
+        function showFeedback(message, type){
+            const el = document.getElementById('recursos-feedback');
+            if(!el) return;
+            el.textContent = message;
+            el.className = 'recursos-feedback recursos-feedback--' + (type || 'error');
+            el.hidden = false;
+            clearTimeout(el._timer);
+            el._timer = setTimeout(function(){ el.hidden = true; }, 6000);
+        }
+
+        function clearFeedback(){
+            const el = document.getElementById('recursos-feedback');
+            if(el) el.hidden = true;
+        }
+
+        function load(key){ try{ return JSON.parse(localStorage.getItem(key))||[] }catch(e){return[]} }
+        function save(key, data){ localStorage.setItem(key, JSON.stringify(data)) }
+
+        function renderAgua(){
+            const lista=load(KEY_AGUA);
+            const tbodyCons=document.querySelector('#tabela-agua-consumo tbody');
+            const tbodyProd=document.querySelector('#tabela-agua-producao tbody');
+            tbodyCons.innerHTML='';
+            tbodyProd.innerHTML='';
+            lista.forEach((r,i)=>{
+                const tr=document.createElement('tr');
+                const btn=`<button type="button" class="${BTN_DELETE}" onclick="deleteAgua(${i})">Apagar</button>`;
+                if(r.tipo==='consumo'){
+                    tr.innerHTML=`<td>${r.data}</td><td class="telemetry">${r.volume}</td><td>${btn}</td>`;
+                    tbodyCons.appendChild(tr);
+                } else {
+                    tr.innerHTML=`<td>${r.data}</td><td class="telemetry">${r.volume}</td><td>${btn}</td>`;
+                    tbodyProd.appendChild(tr);
+                }
+            });
+        }
+
+        function addAgua(e){
+            e.preventDefault();
+            const data=document.getElementById('agua-data').value;
+            const volume=parseFloat(document.getElementById('agua-volume').value)||0;
+            const tipo=document.getElementById('agua-tipo').value;
+            const lista=load(KEY_AGUA);
+            lista.push({data,volume,tipo});
+            save(KEY_AGUA,lista);
+            renderAgua();
+            e.target.reset();
+            clearFeedback();
+            showFeedback('Registro de água adicionado.', 'success');
+        }
+
+        function deleteAgua(i){
+            const lista=load(KEY_AGUA);
+            lista.splice(i,1);
+            save(KEY_AGUA,lista);
+            renderAgua();
+        }
+
+        function renderEnergia(){
+            const lista=load(KEY_ENERGIA);
+            const tbodyCons=document.querySelector('#tabela-energia-consumo tbody');
+            const tbodyProd=document.querySelector('#tabela-energia-producao tbody');
+            tbodyCons.innerHTML='';
+            tbodyProd.innerHTML='';
+            lista.forEach((r,i)=>{
+                const tr=document.createElement('tr');
+                const btn=`<button type="button" class="${BTN_DELETE}" onclick="deleteEnergia(${i})">Apagar</button>`;
+                if(r.tipo==='consumo'){
+                    tr.innerHTML=`<td>${r.data}</td><td class="telemetry">${r.kwh}</td><td>${btn}</td>`;
+                    tbodyCons.appendChild(tr);
+                } else {
+                    tr.innerHTML=`<td>${r.data}</td><td class="telemetry">${r.kwh}</td><td>${btn}</td>`;
+                    tbodyProd.appendChild(tr);
+                }
+            });
+        }
+
+        function comparar(){
+            const data=document.getElementById('resumo-data').value;
+            if(!data){ showFeedback('Escolha uma data para comparar consumo e produção.'); return; }
+            const agua=load(KEY_AGUA).filter(r=>r.data===data);
+            const energia=load(KEY_ENERGIA).filter(r=>r.data===data);
+            const aCons = agua.reduce((s,r)=> s + (r.tipo==='consumo'? r.volume:0),0);
+            const aProd = agua.reduce((s,r)=> s + (r.tipo==='producao'? r.volume:0),0);
+            const eCons = energia.reduce((s,r)=> s + (r.tipo==='consumo'? r.kwh:0),0);
+            const eProd = energia.reduce((s,r)=> s + (r.tipo==='producao'? r.kwh:0),0);
+            let tbl=document.getElementById('tabela-comparacao');
+            if(!tbl){
+                const sec=document.getElementById('resumos');
+                const div=document.createElement('div');
+                div.className='recursos-table-wrap';
+                div.innerHTML=`<h4 class="recursos-subtitle">Comparação Consumo x Produção</h4><table class="history-table" id="tabela-comparacao"><thead><tr><th>Recurso</th><th>Consumo</th><th>Produção</th><th>Diferença (Prod - Cons)</th></tr></thead><tbody></tbody></table>`;
+                sec.appendChild(div);
+                tbl=document.getElementById('tabela-comparacao');
+            }
+            const tbody=tbl.querySelector('tbody');
+            tbody.innerHTML='';
+            const trA=document.createElement('tr');
+            trA.innerHTML=`<td>Água</td><td class="telemetry">${aCons} L</td><td class="telemetry">${aProd} L</td><td class="telemetry">${(aProd - aCons).toFixed(2)} L</td>`;
+            tbody.appendChild(trA);
+            const trE=document.createElement('tr');
+            trE.innerHTML=`<td>Energia</td><td class="telemetry">${eCons} kWh</td><td class="telemetry">${eProd} kWh</td><td class="telemetry">${(eProd - eCons).toFixed(2)} kWh</td>`;
+            tbody.appendChild(trE);
+            showFeedback('Comparação gerada para ' + data + '.', 'success');
+        }
+
+        function addEnergia(e){
+            e.preventDefault();
+            const data=document.getElementById('energia-data').value;
+            const kwh=parseFloat(document.getElementById('energia-kwh').value)||0;
+            const tipo=document.getElementById('energia-tipo').value;
+            const lista=load(KEY_ENERGIA);
+            lista.push({data,kwh,tipo});
+            save(KEY_ENERGIA,lista);
+            renderEnergia();
+            e.target.reset();
+            clearFeedback();
+            showFeedback('Registro de energia adicionado.', 'success');
+        }
+
+        function deleteEnergia(i){
+            const lista=load(KEY_ENERGIA);
+            lista.splice(i,1);
+            save(KEY_ENERGIA,lista);
+            renderEnergia();
+        }
+
+        function renderAlimentos(){
+            const lista=load(KEY_ALIMENTOS);
+            const tbody=document.querySelector('#tabela-alimentos tbody');
+            tbody.innerHTML='';
+            lista.forEach((r,i)=>{
+                const tr=document.createElement('tr');
+                tr.innerHTML=`<td>${r.data}</td><td>${r.item}</td><td class="telemetry">${r.qtd}</td><td>${r.unidade}</td><td>${r.tipo}</td><td><button type="button" class="${BTN_DELETE}" onclick="deleteAlimento(${i})">Apagar</button></td>`;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function addAlimento(e){
+            e.preventDefault();
+            const data=document.getElementById('alimento-data').value;
+            const item=document.getElementById('alimento-item').value;
+            const qtd=parseFloat(document.getElementById('alimento-qtd').value)||0;
+            const unidade=document.getElementById('alimento-unidade').value;
+            const tipo=document.getElementById('alimento-tipo').value;
+            const lista=load(KEY_ALIMENTOS);
+            lista.push({data,item,qtd,unidade,tipo});
+            save(KEY_ALIMENTOS,lista);
+            renderAlimentos();
+            e.target.reset();
+            clearFeedback();
+            showFeedback('Movimentação de alimento registrada.', 'success');
+        }
+
+        function deleteAlimento(i){
+            const lista=load(KEY_ALIMENTOS);
+            lista.splice(i,1);
+            save(KEY_ALIMENTOS,lista);
+            renderAlimentos();
+        }
+
+        function renderEstoque(){
+            const lista=load(KEY_ESTOQUE);
+            const tbody=document.querySelector('#tabela-estoque tbody');
+            tbody.innerHTML='';
+            lista.forEach((r,i)=>{
+                const tr=document.createElement('tr');
+                tr.innerHTML=`<td>${r.item}</td><td class="telemetry">${r.qtd}</td><td>${r.unidade}</td><td><button type="button" class="${BTN_DELETE}" onclick="deleteEstoque(${i})">Remover</button></td>`;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function addEstoque(e){
+            e.preventDefault();
+            const item=document.getElementById('estoque-item').value;
+            const qtd=parseFloat(document.getElementById('estoque-qtd').value)||0;
+            const unidade=document.getElementById('estoque-unidade').value;
+            const lista=load(KEY_ESTOQUE);
+            const idx=lista.findIndex(x=>x.item===item && x.unidade===unidade);
+            if(idx>=0){ lista[idx].qtd = parseFloat(lista[idx].qtd) + qtd; }
+            else { lista.push({item,qtd,unidade}); }
+            save(KEY_ESTOQUE,lista);
+            renderEstoque();
+            e.target.reset();
+            clearFeedback();
+            showFeedback('Estoque atualizado.', 'success');
+        }
+
+        function deleteEstoque(i){
+            const lista=load(KEY_ESTOQUE);
+            lista.splice(i,1);
+            save(KEY_ESTOQUE,lista);
+            renderEstoque();
+        }
+
+        function addProducao(){
+            const data=document.getElementById('producao-data').value;
+            const recurso=document.getElementById('producao-recurso').value;
+            const valor=parseFloat(document.getElementById('producao-valor').value)||0;
+            if(!data){ showFeedback('Escolha a data da produção.'); return; }
+            if(valor <= 0){ showFeedback('Informe um valor de produção maior que zero.'); return; }
+            if(recurso==='agua'){ const lista=load(KEY_AGUA); lista.push({data,volume:valor,tipo:'producao'}); save(KEY_AGUA,lista); renderAgua(); }
+            if(recurso==='energia'){ const lista=load(KEY_ENERGIA); lista.push({data,kwh:valor,tipo:'producao'}); save(KEY_ENERGIA,lista); renderEnergia(); }
+            document.getElementById('producao-data').value='';
+            document.getElementById('producao-valor').value='';
+            showFeedback('Produção registrada.', 'success');
+        }
+
+        function addConsumo(){
+            const data=document.getElementById('producao-data').value;
+            const recurso=document.getElementById('producao-recurso').value;
+            const valor=parseFloat(document.getElementById('producao-valor').value)||0;
+            if(!data){ showFeedback('Escolha a data do consumo.'); return; }
+            if(valor <= 0){ showFeedback('Informe um valor de consumo maior que zero.'); return; }
+            if(recurso==='agua'){ const lista=load(KEY_AGUA); lista.push({data,volume:valor,tipo:'consumo'}); save(KEY_AGUA,lista); renderAgua(); }
+            if(recurso==='energia'){ const lista=load(KEY_ENERGIA); lista.push({data,kwh:valor,tipo:'consumo'}); save(KEY_ENERGIA,lista); renderEnergia(); }
+            document.getElementById('producao-data').value='';
+            document.getElementById('producao-valor').value='';
+            showFeedback('Consumo registrado.', 'success');
+        }
+
+        function gerarResumo(){
+            const data=document.getElementById('resumo-data').value;
+            if(!data){ showFeedback('Escolha uma data para gerar o resumo.'); return; }
+            const agua=load(KEY_AGUA).filter(r=>r.data===data);
+            const energia=load(KEY_ENERGIA).filter(r=>r.data===data);
+            const alimentos=load(KEY_ALIMENTOS).filter(r=>r.data===data);
+            const aCons = agua.reduce((s,r)=> s + (r.tipo==='consumo' ? r.volume : 0),0);
+            const aProd = agua.reduce((s,r)=> s + (r.tipo==='producao' ? r.volume : 0),0);
+            const eCons = energia.reduce((s,r)=> s + (r.tipo==='consumo' ? r.kwh : 0),0);
+            const eProd = energia.reduce((s,r)=> s + (r.tipo==='producao' ? r.kwh : 0),0);
+            const alimProd = alimentos.reduce((s,r)=> s + (r.tipo==='entrada' ? r.qtd : 0),0);
+            const alimCons = alimentos.reduce((s,r)=> s + (r.tipo==='saida' ? r.qtd : 0),0);
+            const tbodyCons = document.querySelector('#tabela-resumo-consumo tbody');
+            const tbodyProd = document.querySelector('#tabela-resumo-producao tbody');
+            if(tbodyCons){
+                tbodyCons.innerHTML = '';
+                const trA=document.createElement('tr'); trA.innerHTML=`<td>Água</td><td class="telemetry">${aCons} L</td>`; tbodyCons.appendChild(trA);
+                const trE=document.createElement('tr'); trE.innerHTML=`<td>Energia</td><td class="telemetry">${eCons} kWh</td>`; tbodyCons.appendChild(trE);
+                const trAl=document.createElement('tr'); trAl.innerHTML=`<td>Alimentos (consumo)</td><td class="telemetry">${alimCons}</td>`; tbodyCons.appendChild(trAl);
+            }
+            if(tbodyProd){
+                tbodyProd.innerHTML = '';
+                const trA2=document.createElement('tr'); trA2.innerHTML=`<td>Água</td><td class="telemetry">${aProd} L</td>`; tbodyProd.appendChild(trA2);
+                const trE2=document.createElement('tr'); trE2.innerHTML=`<td>Energia</td><td class="telemetry">${eProd} kWh</td>`; tbodyProd.appendChild(trE2);
+                const trAl2=document.createElement('tr'); trAl2.innerHTML=`<td>Alimentos (produção)</td><td class="telemetry">${alimProd}</td>`; tbodyProd.appendChild(trAl2);
+            }
+            showFeedback('Resumo diário gerado para ' + data + '.', 'success');
+        }
+
+        function exportar(){
+            const data={agua:load(KEY_AGUA), energia:load(KEY_ENERGIA), alimentos:load(KEY_ALIMENTOS), estoque:load(KEY_ESTOQUE)};
+            const blob=new Blob([JSON.stringify(data, null, 2)],{type:'application/json'});
+            const url=URL.createObjectURL(blob);
+            const a=document.createElement('a');
+            a.href=url;
+            a.download='recursos_export.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            showFeedback('Backup exportado com sucesso.', 'success');
+        }
+
+        function importar(file){
+            const reader=new FileReader();
+            reader.onload=function(e){
+                try{
+                    const obj=JSON.parse(e.target.result);
+                    if(!obj.agua && !obj.energia && !obj.alimentos && !obj.estoque){
+                        showFeedback('Arquivo JSON inválido: nenhum dado de recursos encontrado.');
+                        return;
+                    }
+                    if(obj.agua) save(KEY_AGUA,obj.agua);
+                    if(obj.energia) save(KEY_ENERGIA,obj.energia);
+                    if(obj.alimentos) save(KEY_ALIMENTOS,obj.alimentos);
+                    if(obj.estoque) save(KEY_ESTOQUE,obj.estoque);
+                    renderAll();
+                    showFeedback('Importação concluída. Dados da colônia restaurados.', 'success');
+                }catch(err){
+                    showFeedback('Não foi possível ler o arquivo. Verifique se é um JSON válido exportado pelo sistema.');
+                }
+            };
+            reader.onerror=function(){
+                showFeedback('Erro ao ler o arquivo selecionado.');
+            };
+            reader.readAsText(file);
+        }
+
+        function limparTudo(){
+            localStorage.removeItem(KEY_AGUA);
+            localStorage.removeItem(KEY_ENERGIA);
+            localStorage.removeItem(KEY_ALIMENTOS);
+            localStorage.removeItem(KEY_ESTOQUE);
+            renderAll();
+            document.getElementById('limpar-confirm').hidden = true;
+            showFeedback('Todos os registros foram removidos.', 'success');
+        }
+
+        function pedirLimpar(){
+            document.getElementById('limpar-confirm').hidden = false;
+            document.getElementById('limpar-confirm').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function renderAll(){
+            renderAgua();
+            renderEnergia();
+            renderAlimentos();
+            renderEstoque();
+            const c=document.querySelector('#tabela-resumo-consumo tbody');
+            const p=document.querySelector('#tabela-resumo-producao tbody');
+            if(c) c.innerHTML='';
+            if(p) p.innerHTML='';
+        }
+
+        document.getElementById('form-agua').addEventListener('submit', addAgua);
+        document.getElementById('form-energia').addEventListener('submit', addEnergia);
+        document.getElementById('form-alimento').addEventListener('submit', addAlimento);
+        document.getElementById('form-estoque').addEventListener('submit', addEstoque);
+        document.getElementById('btn-producao').addEventListener('click', addProducao);
+        document.getElementById('btn-consumo').addEventListener('click', addConsumo);
+        document.getElementById('btn-resumo').addEventListener('click', gerarResumo);
+        document.getElementById('btn-comparar').addEventListener('click', comparar);
+        document.getElementById('exportar').addEventListener('click', exportar);
+        document.getElementById('import-file').addEventListener('change', function(e){
+            const file = e.target.files[0];
+            const nameEl = document.getElementById('import-file-name');
+            if(file){
+                nameEl.textContent = file.name;
+                importar(file);
+            } else {
+                nameEl.textContent = 'Nenhum arquivo selecionado';
+            }
+            e.target.value = '';
+        });
+        document.getElementById('limpar').addEventListener('click', pedirLimpar);
+        document.getElementById('limpar-sim').addEventListener('click', limparTudo);
+        document.getElementById('limpar-nao').addEventListener('click', function(){
+            document.getElementById('limpar-confirm').hidden = true;
+            showFeedback('Limpeza cancelada.', 'info');
+        });
+
+        renderAll();
+    </script>
+
+</body>
+</html>

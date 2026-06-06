@@ -19,10 +19,10 @@ Protótipo navegável de um sistema web de gestão de recursos para uma colônia
 | Arquivo              | Responsável | Descrição                                                       | Status     |
 | -------------------- | ----------- | --------------------------------------------------------------- | ---------- |
 | `index.html`         | Pessoa 1    | Dashboard — visão geral da colônia                              | Pronto     |
-| `recursos.html`      | Pessoa 2    | Gestão de recursos (água, energia, alimentos)                   | Pendente   |
+| `recursos.html`      | Pessoa 2    | Gestão de recursos (água, energia, alimentos)                   | Pronto     |
 | `monitoramento.html` | Pessoa 3    | Monitoramento ambiental (temperatura, CO₂, ar)                  | Pendente   |
 | `alertas.html`       | Pessoa 4    | Central de alertas e recomendações de ação                      | Pronto     |
-| `style.css`          | Todos       | Estilos compartilhados (identidade visual, status bar, alertas) | Atualizado |
+| `style.css`          | Todos       | Estilos compartilhados (identidade visual, status bar, alertas, recursos) | Atualizado |
 
 ---
 
@@ -31,11 +31,11 @@ Protótipo navegável de um sistema web de gestão de recursos para uma colônia
 | Tela          | Arquivo              | Conteúdo principal                                                                      |
 | ------------- | -------------------- | --------------------------------------------------------------------------------------- |
 | Dashboard     | `index.html`         | Cards de recursos (85/72/91/63%), status bar, alertas recentes (1 crítico + 1 moderado) |
-| Recursos      | `recursos.html`      | Estoque, consumo e produção diária dos recursos                                         |
+| Recursos      | `recursos.html`      | Água, energia, alimentos, estoque, resumos diários e exportação JSON                      |
 | Monitoramento | `monitoramento.html` | Temperatura, umidade, qualidade do ar e nível de CO₂                                    |
 | Alertas       | `alertas.html`       | Central de comando: severidade, medidores, recomendações, timeline e filtros            |
 
-As páginas prontas (`index.html` e `alertas.html`) compartilham header, menu, status bar sticky e footer. As demais telas serão integradas pelo grupo.
+As páginas prontas (`index.html`, `recursos.html` e `alertas.html`) compartilham header, menu, status bar sticky e footer. A tela de monitoramento será integrada pelo grupo.
 
 ---
 
@@ -48,6 +48,28 @@ Visão geral da colônia (Pessoa 1), alinhada à Central de Alertas:
 - **Dados do satélite** — temperatura externa -18°C, comunicação estável
 - **Alertas recentes** — temperatura crítica no Módulo C e estoque de alimentos abaixo de 70%
 - Link direto para a Central de Alertas
+
+---
+
+## Gestão de Recursos (`recursos.html`)
+
+Tela da Pessoa 2 — controle operacional de estoque, consumo e produção, alinhada ao Dashboard e à Central de Alertas:
+
+1. **Status bar sticky** — Colônia Alpha, ATENÇÃO, 1 crítico · 1 moderado, sync UTC
+2. **Hero** — estoque de alimentos em 63% (meta 70%) com link para alerta moderado; oxigênio (91%) referenciado no Dashboard e Monitoramento
+3. **Menu âncora** — navegação rápida entre Água, Energia, Alimentos, Estoque, Resumos e Utilitários
+4. **Controle de Água** — formulário de consumo/produção (L) e tabelas separadas por tipo
+5. **Gestão de Energia** — formulário de consumo/produção (kWh) e tabelas separadas por tipo
+6. **Manipulação de Alimentos** — registro de entradas e saídas por item, quantidade e unidade
+7. **Administração de Estoque** — cadastro e atualização de itens (somar quantidade se já existir)
+8. **Resumos diários** — adicionar consumo/produção por data, gerar resumo e comparar consumo × produção
+9. **Utilitários** — exportar dados (JSON), importar backup (com label acessível) e limpar registros (confirmação na página)
+
+**Distribuição de recursos por tela:** água, energia e alimentos são operados em `recursos.html`; **oxigênio** é monitorado no **Dashboard** (`index.html`, card 91%) e na tela de **Monitoramento** (`monitoramento.html`), pois exige sensores ambientais e não entradas manuais de estoque.
+
+**Interatividade (JavaScript):** persistência em `localStorage`; adicionar, apagar e resumir registros; export/import JSON; mensagens de feedback na página (sem `alert()`).
+
+**Recursos de UX:** formulários e tabelas estilizados (`.recursos-form`, `.history-table`), placeholders com exemplos lunares, telemetria em JetBrains Mono, ícones Font Awesome, layout responsivo (breakpoint 768px) e `aria-*` no menu e feedback.
 
 ---
 
@@ -81,7 +103,7 @@ Tela da Pessoa 4 — fluxo operacional completo:
 | Módulo C (temperatura) | -8°C      | Crítico (mínimo -5°C) |
 | Sync geral             | 09:45 UTC | —                     |
 
-Os valores são consistentes entre `index.html` e `alertas.html`.
+Os valores são consistentes entre `index.html`, `recursos.html` e `alertas.html`.
 
 ---
 
@@ -100,7 +122,7 @@ Abra o arquivo `index.html` no navegador (duplo clique ou extensão Live Server 
 
 ## Tecnologias
 
-- HTML5 + CSS3 + JavaScript (interações leves na Central de Alertas)
+- HTML5 + CSS3 + JavaScript (Central de Alertas e Gestão de Recursos)
 - [Google Fonts](https://fonts.google.com/) — Orbitron, Poppins, Inter, JetBrains Mono (telemetria)
 - [Font Awesome 6](https://fontawesome.com/) — ícones
 - Dados simulados (sem backend, banco de dados ou integração com satélites)
