@@ -31,6 +31,35 @@ header{
     flex-wrap:wrap;
 }
 
+.logo{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.logo__link{
+    display:block;
+    line-height:0;
+    border-radius:8px;
+    flex-shrink:0;
+}
+
+.logo__link:focus-visible{
+    outline:2px solid #60A5FA;
+    outline-offset:4px;
+}
+
+.logo__img{
+    display:block;
+    height:56px;
+    width:auto;
+    object-fit:contain;
+}
+
+.logo__text{
+    min-width:0;
+}
+
 .logo h1{
     text-shadow: 0 0 5px rgba(253, 254, 254, 0.187), 0 0 15px rgba(96,165,250,.4);
     font-family:'Orbitron', sans-serif;
@@ -40,13 +69,13 @@ header{
     text-transform:uppercase;
 }
 
-.hero h2, .panel h3, .card h3, nav a{
-    font-family:'Poppins', sans-serif;
-}
-
 .logo p{
     color:#9CA3AF;
     margin-top:5px;
+}
+
+.hero h2, .panel h3, .card h3, nav a{
+    font-family:'Poppins', sans-serif;
 }
 
 nav ul{
@@ -1738,6 +1767,14 @@ footer{
         flex-direction:column;
         gap:20px;
         text-align:center;
+    }
+
+    .logo{
+        justify-content:center;
+    }
+
+    .logo__img{
+        height:48px;
     }
 
     nav ul{
