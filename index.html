@@ -62,8 +62,9 @@
                 </p>
             </div>
 
-            <a href="alertas.html#alertas-criticos" class="status-badge status-badge--warning hero-action-link" aria-label="Colônia em atenção — 1 alerta crítico e 1 moderado — ver central de alertas">
-                ATENÇÃO · 1 crítico · 1 moderado
+            <a href="alertas.html#alertas-criticos" class="hero-alert-cta hero-alert-cta--warning" aria-label="Colônia em atenção — 1 alerta crítico e 1 moderado — ir para a Central de Alertas">
+                <span class="hero-alert-cta__label"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> ATENÇÃO · 1 crítico · 1 moderado</span>
+                <span class="hero-alert-cta__hint">Ver Central de Alertas <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
             </a>
         </section>
 
@@ -136,21 +137,21 @@
             <div class="panel">
                 <h3>Alertas Recentes</h3>
 
-                <div class="alert critical">
+                <a href="alertas.html#alertas-criticos" class="alert critical">
                     Temperatura crítica no Módulo de Armazenamento C (<span class="telemetry">-8°C</span>).
-                </div>
+                </a>
 
-                <div class="alert warning">
+                <a href="alertas.html#alertas-moderados" class="alert warning">
                     Estoque de alimentos abaixo de 70%.
-                </div>
+                </a>
 
-                <div class="alert normal">
+                <a href="alertas.html#alertas-informativos" class="alert normal">
                     Sistema de reciclagem de água operando normalmente.
-                </div>
+                </a>
 
-                <div class="alert normal">
+                <a href="alertas.html#alertas-informativos" class="alert normal">
                     Painéis solares com eficiência máxima.
-                </div>
+                </a>
 
                 <a href="alertas.html" class="panel-link">Ver central de alertas →</a>
             </div>

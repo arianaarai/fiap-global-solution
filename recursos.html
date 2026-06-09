@@ -64,8 +64,9 @@
                 </p>
             </div>
 
-            <a href="alertas.html#alertas-moderados" class="status-badge status-badge--warning hero-action-link" aria-label="Estoque de alimentos moderado — ver central de alertas">
-                Alimentos · 63%
+            <a href="alertas.html#alertas-moderados" class="hero-alert-cta hero-alert-cta--warning" aria-label="Estoque de alimentos moderado — ir para alertas moderados na Central de Alertas">
+                <span class="hero-alert-cta__label"><i class="fa-solid fa-seedling" aria-hidden="true"></i> Alimentos · 63%</span>
+                <span class="hero-alert-cta__hint">Ver alerta moderado <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
             </a>
         </section>
 
@@ -336,7 +337,32 @@
             if(el) el.hidden = true;
         }
 
-        function load(key){ try{ return JSON.parse(localStorage.getItem(key))||[] }catch(e){return[]} }
+        function newRecordId(prefix){
+            return prefix + '-' + Date.now() + '-' + Math.random().toString(36).slice(2, 9);
+        }
+
+        function ensureRecordId(record, prefix){
+            if(!record.id) record.id = newRecordId(prefix);
+            return record;
+        }
+
+        function load(key){
+            try{
+                const data = JSON.parse(localStorage.getItem(key)) || [];
+                const prefix = key.replace('recursos_', '');
+                let migrated = false;
+                data.forEach(function(record){
+                    if(!record.id){
+                        ensureRecordId(record, prefix);
+                        migrated = true;
+                    }
+                });
+                if(migrated) save(key, data);
+                return data;
+            }catch(e){
+                return [];
+            }
+        }
         function save(key, data){ localStorage.setItem(key, JSON.stringify(data)) }
 
         function renderAgua(){
@@ -345,9 +371,9 @@
             const tbodyProd=document.querySelector('#tabela-agua-producao tbody');
             tbodyCons.innerHTML='';
             tbodyProd.innerHTML='';
-            lista.forEach((r,i)=>{
+            lista.forEach(function(r){
                 const tr=document.createElement('tr');
-                const btn=`<button type="button" class="${BTN_DELETE}" onclick="deleteAgua(${i})">Apagar</button>`;
+                const btn=`<button type="button" class="${BTN_DELETE}" onclick="deleteAgua('${r.id}')">Apagar</button>`;
                 if(r.tipo==='consumo'){
                     tr.innerHTML=`<td>${r.data}</td><td class="telemetry">${r.volume}</td><td>${btn}</td>`;
                     tbodyCons.appendChild(tr);
@@ -364,7 +390,7 @@
             const volume=parseFloat(document.getElementById('agua-volume').value)||0;
             const tipo=document.getElementById('agua-tipo').value;
             const lista=load(KEY_AGUA);
-            lista.push({data,volume,tipo});
+            lista.push(ensureRecordId({data,volume,tipo}, 'agua'));
             save(KEY_AGUA,lista);
             renderAgua();
             e.target.reset();
@@ -372,9 +398,11 @@
             showFeedback('Registro de água adicionado.', 'success');
         }
 
-        function deleteAgua(i){
+        function deleteAgua(id){
             const lista=load(KEY_AGUA);
-            lista.splice(i,1);
+            const idx=lista.findIndex(function(r){ return r.id === id; });
+            if(idx < 0) return;
+            lista.splice(idx,1);
             save(KEY_AGUA,lista);
             renderAgua();
         }
@@ -385,9 +413,9 @@
             const tbodyProd=document.querySelector('#tabela-energia-producao tbody');
             tbodyCons.innerHTML='';
             tbodyProd.innerHTML='';
-            lista.forEach((r,i)=>{
+            lista.forEach(function(r){
                 const tr=document.createElement('tr');
-                const btn=`<button type="button" class="${BTN_DELETE}" onclick="deleteEnergia(${i})">Apagar</button>`;
+                const btn=`<button type="button" class="${BTN_DELETE}" onclick="deleteEnergia('${r.id}')">Apagar</button>`;
                 if(r.tipo==='consumo'){
                     tr.innerHTML=`<td>${r.data}</td><td class="telemetry">${r.kwh}</td><td>${btn}</td>`;
                     tbodyCons.appendChild(tr);
@@ -433,7 +461,7 @@
             const kwh=parseFloat(document.getElementById('energia-kwh').value)||0;
             const tipo=document.getElementById('energia-tipo').value;
             const lista=load(KEY_ENERGIA);
-            lista.push({data,kwh,tipo});
+            lista.push(ensureRecordId({data,kwh,tipo}, 'energia'));
             save(KEY_ENERGIA,lista);
             renderEnergia();
             e.target.reset();
@@ -441,9 +469,11 @@
             showFeedback('Registro de energia adicionado.', 'success');
         }
 
-        function deleteEnergia(i){
+        function deleteEnergia(id){
             const lista=load(KEY_ENERGIA);
-            lista.splice(i,1);
+            const idx=lista.findIndex(function(r){ return r.id === id; });
+            if(idx < 0) return;
+            lista.splice(idx,1);
             save(KEY_ENERGIA,lista);
             renderEnergia();
         }
@@ -522,8 +552,8 @@
             const valor=parseFloat(document.getElementById('producao-valor').value)||0;
             if(!data){ showFeedback('Escolha a data da produção.'); return; }
             if(valor <= 0){ showFeedback('Informe um valor de produção maior que zero.'); return; }
-            if(recurso==='agua'){ const lista=load(KEY_AGUA); lista.push({data,volume:valor,tipo:'producao'}); save(KEY_AGUA,lista); renderAgua(); }
-            if(recurso==='energia'){ const lista=load(KEY_ENERGIA); lista.push({data,kwh:valor,tipo:'producao'}); save(KEY_ENERGIA,lista); renderEnergia(); }
+            if(recurso==='agua'){ const lista=load(KEY_AGUA); lista.push(ensureRecordId({data,volume:valor,tipo:'producao'}, 'agua')); save(KEY_AGUA,lista); renderAgua(); }
+            if(recurso==='energia'){ const lista=load(KEY_ENERGIA); lista.push(ensureRecordId({data,kwh:valor,tipo:'producao'}, 'energia')); save(KEY_ENERGIA,lista); renderEnergia(); }
             document.getElementById('producao-data').value='';
             document.getElementById('producao-valor').value='';
             showFeedback('Produção registrada.', 'success');
@@ -535,8 +565,8 @@
             const valor=parseFloat(document.getElementById('producao-valor').value)||0;
             if(!data){ showFeedback('Escolha a data do consumo.'); return; }
             if(valor <= 0){ showFeedback('Informe um valor de consumo maior que zero.'); return; }
-            if(recurso==='agua'){ const lista=load(KEY_AGUA); lista.push({data,volume:valor,tipo:'consumo'}); save(KEY_AGUA,lista); renderAgua(); }
-            if(recurso==='energia'){ const lista=load(KEY_ENERGIA); lista.push({data,kwh:valor,tipo:'consumo'}); save(KEY_ENERGIA,lista); renderEnergia(); }
+            if(recurso==='agua'){ const lista=load(KEY_AGUA); lista.push(ensureRecordId({data,volume:valor,tipo:'consumo'}, 'agua')); save(KEY_AGUA,lista); renderAgua(); }
+            if(recurso==='energia'){ const lista=load(KEY_ENERGIA); lista.push(ensureRecordId({data,kwh:valor,tipo:'consumo'}, 'energia')); save(KEY_ENERGIA,lista); renderEnergia(); }
             document.getElementById('producao-data').value='';
             document.getElementById('producao-valor').value='';
             showFeedback('Consumo registrado.', 'success');

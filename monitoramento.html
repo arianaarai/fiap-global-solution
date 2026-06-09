@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento Ambiental | Lunar Resource Hub</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="icon" href="images/logo-icon.png" type="image/png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Orbitron:wght@600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <a href="index.html" class="logo__link" aria-label="Lunar Resource Hub — ir para o Dashboard">
+                <img src="images/logo-icon.png" alt="" class="logo__img" width="56" height="56" aria-hidden="true">
+            </a>
+            <div class="logo__text">
+                <h1>Lunar Resource Hub</h1>
+                <p>Sistema de Gestão da Colônia Lunar</p>
+            </div>
+        </div>
+
+        <nav aria-label="Navegação principal">
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="recursos.html">Recursos</a></li>
+                <li><a href="monitoramento.html" class="active" aria-current="page">Monitoramento</a></li>
+                <li><a href="alertas.html">Alertas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="status-bar" role="status" aria-live="polite">
+        <div class="status-bar__cluster">
+            <span class="status-bar__pulse status-bar__pulse--critical" aria-hidden="true"></span>
+            <span class="status-bar__label">Colônia Alpha</span>
+        </div>
+        <span class="status-bar__divider" aria-hidden="true">·</span>
+        <span class="status-bar__state status-bar__state--critical">ATENÇÃO</span>
+        <span class="status-bar__divider" aria-hidden="true">·</span>
+        <span class="status-bar__count">1 crítico · 1 moderado</span>
+        <span class="status-bar__divider" aria-hidden="true">·</span>
+        <span class="status-bar__sync">Sync <time class="telemetry" datetime="2026-06-04T09:45:00Z">09:45 UTC</time></span>
+    </div>
+
+    <main class="container">
+
+        <section class="hero">
+            <div>
+                <h2>Monitoramento Ambiental</h2>
+                <p>
+                    Telemetria dos sensores da Colônia Alpha — temperatura, umidade, qualidade do ar e CO₂ por módulo.
+                    Sync <strong class="telemetry">09:45 UTC</strong> · oxigênio em <strong class="telemetry">91%</strong> (detalhes em <a href="#atmosfera">Atmosfera</a>).
+                </p>
+            </div>
+
+            <a href="alertas.html#alertas-criticos" class="hero-alert-cta hero-alert-cta--warning" aria-label="Temperatura crítica no Módulo C — ir para a Central de Alertas">
+                <span class="hero-alert-cta__label"><i class="fa-solid fa-temperature-low" aria-hidden="true"></i> Módulo C · -8°C</span>
+                <span class="hero-alert-cta__hint">Ver alerta crítico <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+            </a>
+        </section>
+
+        <nav class="monitoramento-anchor-nav" aria-label="Seções do monitoramento ambiental">
+            <ul>
+                <li><a href="#modulos"><i class="fa-solid fa-building" aria-hidden="true"></i> Módulos</a></li>
+                <li><a href="#atmosfera"><i class="fa-solid fa-wind" aria-hidden="true"></i> Atmosfera</a></li>
+                <li><a href="#exterior"><i class="fa-solid fa-satellite" aria-hidden="true"></i> Exterior</a></li>
+            </ul>
+        </nav>
+
+        <section class="cards" aria-label="Indicadores ambientais gerais">
+            <div class="card">
+                <span class="icon oxigenio-icon">
+                    <i class="fa-solid fa-wind" aria-hidden="true"></i>
+                </span>
+                <h3>Oxigênio (O₂)</h3>
+                <div class="value oxigenio telemetry">91%</div>
+                <p>Nível ideal</p>
+            </div>
+
+            <div class="card">
+                <span class="icon ar-icon">
+                    <i class="fa-solid fa-lungs" aria-hidden="true"></i>
+                </span>
+                <h3>Qualidade do ar</h3>
+                <div class="value ar telemetry">Boa</div>
+                <p>Índice interno estável</p>
+            </div>
+
+            <div class="card">
+                <span class="icon co2-icon">
+                    <i class="fa-solid fa-cloud" aria-hidden="true"></i>
+                </span>
+                <h3>CO₂ (média)</h3>
+                <div class="value co2 telemetry">437 ppm</div>
+                <p>Dentro da faixa segura</p>
+            </div>
+
+            <div class="card">
+                <span class="icon umidade-icon">
+                    <i class="fa-solid fa-droplet" aria-hidden="true"></i>
+                </span>
+                <h3>Umidade (média)</h3>
+                <div class="value umidade telemetry">49%</div>
+                <p>Conforto operacional</p>
+            </div>
+        </section>
+
+        <div class="monitoramento-stack">
+
+            <section id="modulos" class="panel panel--full">
+                <h3><i class="fa-solid fa-building" aria-hidden="true"></i> Leituras por Módulo</h3>
+                <p class="panel-sync"><span class="sync-dot sync-dot--critical" aria-hidden="true"></span> Alerta de temperatura detectado <time class="telemetry" datetime="2026-06-04T09:12:00Z">09:12 UTC</time> · Sync geral <time class="telemetry" datetime="2026-06-04T09:45:00Z">09:45 UTC</time></p>
+
+                <div class="monitoramento-table-wrap">
+                    <table class="components-table monitoramento-table">
+                        <caption class="sr-only">Temperatura, umidade e CO₂ por módulo da colônia</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Módulo</th>
+                                <th scope="col">Função</th>
+                                <th scope="col">Temperatura</th>
+                                <th scope="col">Umidade</th>
+                                <th scope="col">CO₂</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="Módulo"><strong>A</strong></td>
+                                <td data-label="Função">Habitação</td>
+                                <td data-label="Temperatura" class="telemetry">+21°C</td>
+                                <td data-label="Umidade" class="telemetry">48%</td>
+                                <td data-label="CO₂" class="telemetry">420 ppm</td>
+                                <td data-label="Status">
+                                    <span class="badge badge-resolved">
+                                        <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                        Estável
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="Módulo"><strong>B</strong></td>
+                                <td data-label="Função">Agrícola (hidroponia)</td>
+                                <td data-label="Temperatura" class="telemetry">+24°C</td>
+                                <td data-label="Umidade" class="telemetry">65%</td>
+                                <td data-label="CO₂" class="telemetry">380 ppm</td>
+                                <td data-label="Status">
+                                    <span class="badge badge-resolved">
+                                        <span class="severity-shape severity-shape--normal" aria-hidden="true"></span>
+                                        Estável
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr class="monitoramento-row--critical">
+                                <td data-label="Módulo"><strong>C</strong></td>
+                                <td data-label="Função">Armazenamento</td>
+                                <td data-label="Temperatura" class="telemetry monitoramento-value--critical">-8°C</td>
+                                <td data-label="Umidade" class="telemetry">35%</td>
+                                <td data-label="CO₂" class="telemetry">510 ppm</td>
+                                <td data-label="Status">
+                                    <span class="badge badge-critical">
+                                        <span class="severity-shape severity-shape--critical" aria-hidden="true"></span>
+                                        Crítico
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <article class="monitoramento-module-card monitoramento-module-card--critical" aria-labelledby="modulo-c-titulo">
+                    <div class="monitoramento-module-card__header">
+                        <h4 id="modulo-c-titulo"><i class="fa-solid fa-temperature-low" aria-hidden="true"></i> Módulo C — Armazenamento</h4>
+                        <span class="badge badge-critical">
+                            <span class="severity-shape severity-shape--critical" aria-hidden="true"></span>
+                            Crítico
+                        </span>
+                    </div>
+
+                    <p class="monitoramento-module-card__desc">Temperatura abaixo do mínimo operacional de <span class="telemetry">-5°C</span>. Risco de perda de suprimentos sensíveis ao frio.</p>
+
+                    <div class="alert-level-meter alert-level-meter--critical" role="meter" aria-valuenow="8" aria-valuemin="0" aria-valuemax="10" aria-label="Temperatura -8 graus C, abaixo do mínimo seguro de -5 graus C">
+                        <div class="alert-level-meter__header">
+                            <span class="alert-level-meter__value telemetry alert-level-meter__value--critical">-8°C</span>
+                            <span class="alert-level-meter__target">Mínimo: <span class="telemetry">-5°C</span></span>
+                        </div>
+                        <div class="alert-level-meter__track">
+                            <div class="alert-level-meter__fill alert-level-meter__fill--critical" style="width:85%"></div>
+                            <div class="alert-level-meter__marker alert-level-meter__marker--critical" style="left:62%" aria-hidden="true" title="Limite -5°C"></div>
+                        </div>
+                    </div>
+
+                    <p class="monitoramento-module-card__meta">Última leitura: <time class="telemetry" datetime="2026-06-04T09:12:00Z">09:12 UTC</time> · Umidade <span class="telemetry">35%</span> · CO₂ <span class="telemetry">510 ppm</span></p>
+
+                    <a href="alertas.html#alertas-criticos" class="panel-link">Ver alerta e protocolo →</a>
+                </article>
+            </section>
+
+            <section id="atmosfera" class="panel panel--full">
+                <h3><i class="fa-solid fa-wind" aria-hidden="true"></i> Atmosfera Interna</h3>
+                <p class="panel-subtitle">Complementa o card de oxigênio do Dashboard com leituras dos sensores de qualidade do ar.</p>
+
+                <div class="monitoramento-info-grid">
+                    <div class="info-item">
+                        <span>Oxigênio (O₂)</span>
+                        <strong class="telemetry">91%</strong>
+                    </div>
+                    <div class="info-item">
+                        <span>Qualidade do ar</span>
+                        <strong>Boa</strong>
+                    </div>
+                    <div class="info-item">
+                        <span>CO₂ (média colônia)</span>
+                        <strong class="telemetry">437 ppm</strong>
+                    </div>
+                    <div class="info-item">
+                        <span>Umidade (média interna)</span>
+                        <strong class="telemetry">49%</strong>
+                    </div>
+                    <div class="info-item">
+                        <span>Filtros de ar</span>
+                        <strong>Operacionais</strong>
+                    </div>
+                    <div class="info-item">
+                        <span>Última leitura</span>
+                        <strong class="telemetry">09:45 UTC</strong>
+                    </div>
+                </div>
+
+                <p class="monitoramento-note">Oxigênio é monitorado por telemetria automática — o registro manual de estoque fica em <a href="recursos.html">Gestão de Recursos</a>.</p>
+            </section>
+
+            <section id="exterior" class="panel panel--full">
+                <h3><i class="fa-solid fa-satellite" aria-hidden="true"></i> Exterior e Satélite</h3>
+                <p class="panel-subtitle">Condições externas recebidas do satélite de monitoramento lunar.</p>
+
+                <div class="monitoramento-info-grid">
+                    <div class="info-item">
+                        <span>Temperatura externa</span>
+                        <strong class="telemetry">-18°C</strong>
+                    </div>
+                    <div class="info-item">
+                        <span>Radiação solar</span>
+                        <strong>Baixa</strong>
+                    </div>
+                    <div class="info-item">
+                        <span>Comunicação</span>
+                        <strong>Estável</strong>
+                    </div>
+                    <div class="info-item">
+                        <span>Última atualização</span>
+                        <strong class="telemetry">09:45 UTC</strong>
+                    </div>
+                </div>
+
+                <a href="index.html" class="panel-link">Ver visão geral no Dashboard →</a>
+            </section>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <p>Global Solution 2026 • FIAP • Lunar Resource Hub</p>
+    </footer>
+
+</body>
+</html>

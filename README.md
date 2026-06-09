@@ -20,9 +20,9 @@ Protótipo navegável de um sistema web de gestão de recursos para uma colônia
 | -------------------- | ----------- | --------------------------------------------------------------- | ---------- |
 | `index.html`         | Pessoa 1    | Dashboard — visão geral da colônia                              | Pronto     |
 | `recursos.html`      | Pessoa 2    | Gestão de recursos (água, energia, alimentos)                   | Pronto     |
-| `monitoramento.html` | Pessoa 3    | Monitoramento ambiental (temperatura, CO₂, ar)                  | Pendente   |
+| `monitoramento.html` | Pessoa 3    | Monitoramento ambiental (temperatura, CO₂, ar)                  | Pronto     |
 | `alertas.html`       | Pessoa 4    | Central de alertas e recomendações de ação                      | Pronto     |
-| `style.css`          | Todos       | Estilos compartilhados (identidade visual, status bar, alertas, recursos) | Atualizado |
+| `style.css`          | Todos       | Estilos compartilhados (identidade visual, status bar, alertas, recursos, monitoramento) | Atualizado |
 
 ---
 
@@ -35,7 +35,7 @@ Protótipo navegável de um sistema web de gestão de recursos para uma colônia
 | Monitoramento | `monitoramento.html` | Temperatura, umidade, qualidade do ar e nível de CO₂                                    |
 | Alertas       | `alertas.html`       | Central de comando: severidade, medidores, recomendações, timeline e filtros            |
 
-As páginas prontas (`index.html`, `recursos.html` e `alertas.html`) compartilham header, menu, status bar sticky e footer. A tela de monitoramento será integrada pelo grupo.
+As quatro telas (`index.html`, `recursos.html`, `monitoramento.html` e `alertas.html`) compartilham header, menu, status bar sticky e footer.
 
 ---
 
@@ -73,6 +73,27 @@ Tela da Pessoa 2 — controle operacional de estoque, consumo e produção, alin
 
 ---
 
+## Monitoramento Ambiental (`monitoramento.html`)
+
+Tela de telemetria ambiental — temperatura, umidade, qualidade do ar, CO₂ e oxigênio por módulo, alinhada ao Dashboard e à Central de Alertas:
+
+1. **Status bar sticky** — Colônia Alpha, ATENÇÃO, 1 crítico · 1 moderado, sync UTC
+2. **Hero** — leituras dos sensores com sync 09:45 UTC; badge **Módulo C · -8°C** com link para alerta crítico
+3. **Menu âncora** — Módulos, Atmosfera e Exterior
+4. **Cards ambientais** — O₂ 91%, qualidade do ar, CO₂ médio (437 ppm), umidade média (49%)
+5. **Leituras por módulo** — tabela A (Habitação), B (Agrícola) e C (Armazenamento) com temp., umidade e CO₂
+6. **Destaque Módulo C** — medidor de temperatura (-8°C, mínimo -5°C) e link para protocolo em Alertas
+7. **Atmosfera interna** — detalhamento do oxigênio e filtros (complemento ao card do Dashboard)
+8. **Exterior / satélite** — temperatura externa -18°C, radiação e comunicação
+
+**Distribuição:** oxigênio aparece no Dashboard (resumo) e aqui (telemetria detalhada); o alerta crítico de temperatura conecta esta tela à Central de Alertas.
+
+**Interatividade:** página estática (HTML/CSS), reutilizando medidores e badges de severidade do projeto.
+
+**Recursos de UX:** telemetria em JetBrains Mono, tabela responsiva, `aria-*` em medidores e links contextuais, layout responsivo (768px).
+
+---
+
 ## Central de Alertas (`alertas.html`)
 
 Tela da Pessoa 4 — fluxo operacional completo:
@@ -103,7 +124,7 @@ Tela da Pessoa 4 — fluxo operacional completo:
 | Módulo C (temperatura) | -8°C      | Crítico (mínimo -5°C) |
 | Sync geral             | 09:45 UTC | —                     |
 
-Os valores são consistentes entre `index.html`, `recursos.html` e `alertas.html`.
+Os valores são consistentes entre `index.html`, `recursos.html`, `monitoramento.html` e `alertas.html`.
 
 ---
 
@@ -122,7 +143,7 @@ Abra o arquivo `index.html` no navegador (duplo clique ou extensão Live Server 
 
 ## Tecnologias
 
-- HTML5 + CSS3 + JavaScript (Central de Alertas e Gestão de Recursos)
+- HTML5 + CSS3 + JavaScript (Central de Alertas e Gestão de Recursos; Monitoramento estático)
 - [Google Fonts](https://fonts.google.com/) — Orbitron, Poppins, Inter, JetBrains Mono (telemetria)
 - [Font Awesome 6](https://fontawesome.com/) — ícones
 - Dados simulados (sem backend, banco de dados ou integração com satélites)

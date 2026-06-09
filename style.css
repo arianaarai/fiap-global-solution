@@ -324,6 +324,23 @@ nav a.active{
     margin-bottom:0;
 }
 
+a.alert{
+    display:block;
+    text-decoration:none;
+    color:inherit;
+    transition:opacity .15s ease, transform .15s ease;
+}
+
+a.alert:hover{
+    opacity:.92;
+    transform:translateX(2px);
+}
+
+a.alert:focus-visible{
+    outline:2px solid #60A5FA;
+    outline-offset:2px;
+}
+
 .warning{
     background:rgba(249,115,22,0.15);
     border-left:4px solid #F97316;
@@ -408,6 +425,69 @@ nav a.active{
 .hero-action-link:hover{
     transform:scale(1.03);
     box-shadow:0 0 20px rgba(249,115,22,.5);
+}
+
+.hero-alert-cta{
+    display:inline-flex;
+    flex-direction:column;
+    align-items:center;
+    gap:5px;
+    padding:12px 18px;
+    border-radius:12px;
+    text-decoration:none;
+    font-family:'Poppins', sans-serif;
+    text-align:center;
+    cursor:pointer;
+    transition:background .2s ease, border-color .2s ease;
+}
+
+.hero-alert-cta--warning{
+    background:rgba(249,115,22,.1);
+    border:1px solid rgba(249,115,22,.28);
+}
+
+.hero-alert-cta__label{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    font-size:.85rem;
+    font-weight:600;
+    line-height:1.35;
+    color:#FDBA74;
+}
+
+.hero-alert-cta__label i{
+    font-size:.8rem;
+    opacity:.9;
+}
+
+.hero-alert-cta__hint{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    font-size:.75rem;
+    font-weight:600;
+    color:#60A5FA;
+}
+
+.hero-alert-cta__hint i{
+    font-size:.65rem;
+    opacity:.85;
+}
+
+.hero-alert-cta:hover{
+    background:rgba(249,115,22,.16);
+    border-color:rgba(249,115,22,.45);
+}
+
+.hero-alert-cta:hover .hero-alert-cta__hint{
+    color:#93C5FD;
+}
+
+.hero-alert-cta:focus-visible{
+    outline:2px solid #60A5FA;
+    outline-offset:2px;
 }
 
 /* TELEMETRIA & STATUS BAR */
@@ -1416,6 +1496,7 @@ nav a.active{
 nav a:focus-visible,
 .hero-priority:focus-visible,
 .hero-action-link:focus-visible,
+.hero-alert-cta:focus-visible,
 .card--link:focus-visible,
 .alert-item:focus-within,
 .panel-link:focus-visible{
@@ -1428,6 +1509,7 @@ nav a:focus-visible,
 
 .recursos-anchor-nav{
     margin-top:var(--space-block);
+    margin-bottom:var(--space-section);
     padding:14px 18px;
     background:#313a51;
     border-radius:12px;
@@ -1751,6 +1833,172 @@ nav a:focus-visible,
     word-break:break-all;
 }
 
+/* MONITORAMENTO */
+
+.monitoramento-anchor-nav{
+    margin-top:var(--space-block);
+    margin-bottom:var(--space-section);
+    padding:14px 18px;
+    background:#313a51;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.06);
+}
+
+.monitoramento-anchor-nav ul{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 14px;
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+
+.monitoramento-anchor-nav a{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 14px;
+    border-radius:8px;
+    background:#1a2030;
+    border:1px solid #374151;
+    color:#E5E7EB;
+    font-family:'Poppins', sans-serif;
+    font-size:.82rem;
+    font-weight:600;
+    text-decoration:none;
+    transition:background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.monitoramento-anchor-nav a:hover{
+    background:#2563EB;
+    border-color:#3B82F6;
+    color:#FFFFFF;
+}
+
+.monitoramento-anchor-nav a:focus-visible{
+    outline:2px solid #60A5FA;
+    outline-offset:2px;
+}
+
+.monitoramento-stack{
+    margin-top:var(--space-section);
+    display:flex;
+    flex-direction:column;
+    gap:var(--space-section);
+}
+
+.monitoramento-stack [id]{
+    scroll-margin-top:24px;
+}
+
+.monitoramento-stack .panel--full{
+    margin-top:0;
+}
+
+.ar-icon{
+    background:rgba(129,140,248,.15);
+    color:#818CF8;
+}
+
+.co2-icon{
+    background:rgba(148,163,184,.15);
+    color:#94A3B8;
+}
+
+.umidade-icon{
+    background:rgba(56,189,248,.15);
+    color:#38BDF8;
+}
+
+.monitoramento-table-wrap{
+    overflow-x:auto;
+    margin-bottom:var(--space-block);
+}
+
+.monitoramento-row--critical{
+    background:rgba(239,68,68,.08);
+}
+
+.monitoramento-value--critical{
+    color:#FCA5A5;
+    font-weight:600;
+}
+
+.monitoramento-module-card{
+    padding:20px;
+    background:#1a2030;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.06);
+}
+
+.monitoramento-module-card--critical{
+    border-color:rgba(239,68,68,.35);
+    background:rgba(239,68,68,.06);
+}
+
+.monitoramento-module-card__header{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:12px;
+}
+
+.monitoramento-module-card__header h4{
+    font-family:'Poppins', sans-serif;
+    font-size:1rem;
+    font-weight:600;
+    color:#FFFFFF;
+    margin:0;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.monitoramento-module-card__desc{
+    color:#9CA3AF;
+    font-size:.9rem;
+    margin:0 0 var(--space-block);
+    line-height:1.5;
+}
+
+.monitoramento-module-card__meta{
+    color:#6B7280;
+    font-size:.85rem;
+    margin:var(--space-block) 0 14px;
+}
+
+.monitoramento-info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:12px;
+    margin-bottom:var(--space-block);
+}
+
+.monitoramento-note{
+    font-size:.88rem;
+    color:#9CA3AF;
+    margin:0;
+    line-height:1.5;
+}
+
+.monitoramento-note a{
+    color:#60A5FA;
+    font-weight:600;
+    text-decoration:none;
+}
+
+.monitoramento-note a:hover{
+    text-decoration:underline;
+}
+
+.monitoramento-note a:focus-visible{
+    outline:2px solid #60A5FA;
+    outline-offset:2px;
+    border-radius:2px;
+}
+
 /* FOOTER */
 
 footer{
@@ -1786,6 +2034,10 @@ footer{
         flex-direction:column;
         gap:20px;
         text-align:center;
+    }
+
+    .hero-alert-cta{
+        align-self:stretch;
     }
 
     .overview{
@@ -1939,6 +2191,24 @@ footer{
 
     .recursos-utilities{
         grid-template-columns:1fr;
+    }
+
+    .monitoramento-anchor-nav ul{
+        flex-direction:column;
+    }
+
+    .monitoramento-anchor-nav a{
+        width:100%;
+        justify-content:center;
+    }
+
+    .monitoramento-info-grid{
+        grid-template-columns:1fr;
+    }
+
+    .monitoramento-module-card__header{
+        flex-direction:column;
+        align-items:flex-start;
     }
 
 }
