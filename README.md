@@ -172,19 +172,3 @@ Branches sugeridas: `feat/dashboard`, `feat/recursos`, `feat/monitoramento`, `fe
 | Gabriela di Sousa Rodrigues  | 570213 |
 | Hugo D'Angelo                | 571523 |
 | Larissa Sayuri Ribeiro Oyama | 573300 |
-
----
-
-## Entregáveis
-
-| Item | Link |
-|------|------|
-| Repositório GitHub | https://github.com/arianaarai/fiap-global-solution |
-| Vídeo-pitch (2–3 min) | _A definir_ |
-| PDF de entrega | _A definir_ |
-
----
-
-## Créditos
-
-FIAP · Global Solution 2026 · 1TWDOA · Indústria Espacial
