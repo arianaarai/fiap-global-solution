@@ -14,18 +14,6 @@ Protótipo navegável de um sistema web de gestão de recursos para uma colônia
 
 ---
 
-## Estrutura do projeto
-
-| Arquivo              | Responsável | Descrição                                                       | Status     |
-| -------------------- | ----------- | --------------------------------------------------------------- | ---------- |
-| `index.html`         | Pessoa 1    | Dashboard — visão geral da colônia                              | Pronto     |
-| `recursos.html`      | Pessoa 2    | Gestão de recursos (água, energia, alimentos)                   | Pronto     |
-| `monitoramento.html` | Pessoa 3    | Monitoramento ambiental (temperatura, CO₂, ar)                  | Pronto     |
-| `alertas.html`       | Pessoa 4    | Central de alertas e recomendações de ação                      | Pronto     |
-| `style.css`          | Todos       | Estilos compartilhados (identidade visual, status bar, alertas, recursos, monitoramento) | Atualizado |
-
----
-
 ## Navegação do protótipo
 
 | Tela          | Arquivo              | Conteúdo principal                                                                      |
@@ -41,7 +29,7 @@ As quatro telas (`index.html`, `recursos.html`, `monitoramento.html` e `alertas.
 
 ## Dashboard (`index.html`)
 
-Visão geral da colônia (Pessoa 1), alinhada à Central de Alertas:
+Visão geral da colônia, alinhada à Central de Alertas:
 
 - **Status bar sticky** — ATENÇÃO · 1 crítico · 1 moderado · sync UTC
 - **Cards de recursos** — Energia 85%, Água 72%, Oxigênio 91%, Alimentos 63%
@@ -53,7 +41,7 @@ Visão geral da colônia (Pessoa 1), alinhada à Central de Alertas:
 
 ## Gestão de Recursos (`recursos.html`)
 
-Tela da Pessoa 2 — controle operacional de estoque, consumo e produção, alinhada ao Dashboard e à Central de Alertas:
+Controle operacional de estoque, consumo e produção, alinhado ao Dashboard e à Central de Alertas:
 
 1. **Status bar sticky** — Colônia Alpha, ATENÇÃO, 1 crítico · 1 moderado, sync UTC
 2. **Hero** — estoque de alimentos em 63% (meta 70%) com link para alerta moderado; oxigênio (91%) referenciado no Dashboard e Monitoramento
@@ -96,7 +84,7 @@ Tela de telemetria ambiental — temperatura, umidade, qualidade do ar, CO₂ e 
 
 ## Central de Alertas (`alertas.html`)
 
-Tela da Pessoa 4 — fluxo operacional completo:
+Fluxo operacional completo da central de alertas:
 
 1. **Status bar sticky** — Colônia Alpha, ATENÇÃO, 1 crítico · 1 moderado, sync UTC
 2. **Hero com prioridade** — alerta crítico de temperatura no Módulo C (-8°C, mínimo -5°C)
